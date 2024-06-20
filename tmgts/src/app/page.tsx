@@ -32,6 +32,9 @@ export default function Home() {
           
         </div>
       </div>
+      <div>
+        <h1>This is footer</h1>
+      </div>
     </>
   );
 }
