@@ -12,7 +12,7 @@ return(
             </div>
            
           </div>
-          <div className="max-sm:pt-10 ml-5">
+          <div className="max-sm:pt-10 ml-24">
             <h3 className="text-white font-bold"> Important Contact</h3>
           <li className="list-none text-white" >
                 <a
