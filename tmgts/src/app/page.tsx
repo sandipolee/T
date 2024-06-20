@@ -1,6 +1,7 @@
 import { headers } from "next/headers";
 import Image from "next/image";
 import { Header } from "./component/header";
+import Footer from "./component/footer";
 
 export default function Home() {
   return (
@@ -28,19 +29,14 @@ export default function Home() {
             Regester
             </button>
           </div>
-         
+          
           
         </div>
       </div>
-      <div className="bg-blue-950 py-28 h-full mx-auto w-full max-w-screen-x1 px-2.5 md:px-20">
-        <div className="flex">
-          <div className="flex">
-            <img src="./logo.png" className="size-20" alt="" />
-            <h3 className="text-white  font-bold">Gyan Joti Secondary School</h3>
-          </div>
-          
-        </div>
-      </div>
+      <Footer>
+        
+      </Footer>
+      
     </>
   );
 }
