@@ -32,8 +32,10 @@ export default function Home() {
           
         </div>
       </div>
-      <div>
-        <h1>This is footer</h1>
+      <div className="bg-blue-950 py-28 h-full mx-auto w-full max-w-screen-x1 px-2.5 md:px-20">
+        <div>
+          
+        </div>
       </div>
     </>
   );
