@@ -7,7 +7,7 @@ export default function Home() {
     <>
       <Header />
 
-      <div className="bg-white py-10 ">
+      <div className="bg-white py-10 h-screen ">
         <div className="h-full mx-auto w-full max-w-screen-x1 px-2.5 md:px-20">
           <div className="grid md:grid-cols-2 gap-8 pt-10">
           <div className="">
@@ -22,7 +22,7 @@ export default function Home() {
           </div>
           <div className="flex max-sm:justify-center pb-28">
           <button className="
-            rounded-md bg-yellow-500 px-6 py-3 text-sm font-semibold
+            rounded-md bg-yellow-500 px-16 py-4 text-sm font-semibold
              text-white shadow-sm hover:bg-yellow-400 focus-visible:outline 
              focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black">
             Regester
@@ -33,7 +33,11 @@ export default function Home() {
         </div>
       </div>
       <div className="bg-blue-950 py-28 h-full mx-auto w-full max-w-screen-x1 px-2.5 md:px-20">
-        <div>
+        <div className="flex">
+          <div className="flex">
+            <img src="./logo.png" className="size-20" alt="" />
+            <h3 className="text-white  font-bold">Gyan Joti Secondary School</h3>
+          </div>
           
         </div>
       </div>
