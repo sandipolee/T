@@ -7,7 +7,7 @@ import { link } from 'fs'
 const menuItems = [
   {
     name: 'Home',
-    href: '#',
+    href: './',
   },
   {
     name: 'How to fill Form ',
