@@ -8,10 +8,10 @@ export default function Home() {
     <>
       <Header />
 
-      <div className="bg-white py-10 h-screen ">
-        <div className="h-full mx-auto w-full max-w-screen-x1 px-2.5 md:px-20">
+      <div className="bg-white py-10 h-screen">
+        <div className="h-full mx-auto w-full max-w-screen-x1 px-2.5 md:px-20 items-center max-sm:mt-20 ">
           <div className="grid md:grid-cols-2 gap-8 pt-10">
-          <div className="">
+          <div className=" align-middle">
             <h1 className="font-bold text-5xl max-sm:text-center max-sm:pt-8 max-sm:text-4xl text-blue-950 max-sm:justy">
               Register for School Transport Services Today!
             </h1>
@@ -29,8 +29,6 @@ export default function Home() {
             Regester
             </button>
           </div>
-          
-          
         </div>
       </div>
       <Footer>
