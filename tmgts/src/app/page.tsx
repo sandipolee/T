@@ -8,7 +8,7 @@ export default function Home() {
     <>
       <Header />
 
-      <div className="bg-white py-10 h-screen">
+      <div className="bg-white py-10 h-screen " >
         <div className="h-full mx-auto w-full max-w-screen-x1 px-2.5 md:px-20 items-center max-sm:mt-20 ">
           <div className="grid md:grid-cols-2 gap-8 pt-10">
           <div className=" align-middle">
