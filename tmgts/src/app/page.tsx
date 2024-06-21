@@ -2,6 +2,7 @@ import { headers } from "next/headers";
 import Image from "next/image";
 import { Header } from "./component/header";
 import Footer from "./component/footer";
+import Link from "next/link";
 
 export default function Home() {
   return (
@@ -22,12 +23,15 @@ export default function Home() {
           </div>
           </div>
           <div className="flex max-sm:justify-center pb-28">
-          <button className="
+          <Link href="/register">
+            <button className="
             rounded-md bg-yellow-500 px-16 py-4 text-sm font-semibold
              text-white shadow-sm hover:bg-yellow-400 focus-visible:outline 
              focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black">
             Regester
             </button>
+            </Link>
+          
           </div>
         </div>
       </div>
