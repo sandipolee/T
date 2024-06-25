@@ -37,7 +37,7 @@ const Register = () => {
             </div>
            
             <div className="col-span-2 sm:col-span-3 pt-4">
-            <label htmlFor="date">Date</label>
+            <label htmlFor="date">Date of Birth B.S</label>
             
             <NepaliDatePicker inputClassName="form-control flex h-10 w-full rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                               className=""
