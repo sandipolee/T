@@ -22,12 +22,12 @@ export default function Home() {
           <div className="" > 
           </div>
           </div>
-          <div className="flex max-sm:justify-center pb-28">
+          <div className="pb-28">
           <Link href="/register">
             <button className="
-            rounded-md bg-yellow-500 px-16 py-4 text-sm font-semibold
-             text-white shadow-sm hover:bg-yellow-400 focus-visible:outline 
-             focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black">
+            rounded-md bg-yellow-500 
+                  px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-yellow-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black
+             max-sm:w-full">
             Regester
             </button>
             </Link>
