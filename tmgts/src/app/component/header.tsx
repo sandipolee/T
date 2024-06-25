@@ -98,6 +98,7 @@ export function Header() {
                     ))}
                   </nav>
                 </div>
+                <Link href="/login" >
                 <button
                 
                   type="button"
@@ -106,6 +107,7 @@ export function Header() {
                 >
                   Log In
                 </button>
+                </Link>
               </div>
             </div>
           </div>
