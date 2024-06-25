@@ -1,7 +1,14 @@
-import Footer from "../component/footer";
-import { Header } from "../component/header";
+"use client";
 
+
+import { Header } from "../component/header";
+import { useState } from "react";
+import Footer from "../component/footer";
+import { NepaliDatePicker } from "nepali-datepicker-reactjs";
+import "nepali-datepicker-reactjs/dist/index.css"
 const Register = () => {
+ const [date, setDate] = useState<string>("")
+
   return (
     <>
       <Header></Header>
@@ -30,21 +37,13 @@ const Register = () => {
             </div>
            
             <div className="col-span-2 sm:col-span-3 pt-4">
-              <label
-                htmlFor="expiration-date"
-                className="block text-sm font-medium text-gray-700"
-              >
-                Date of Birth(YY/MM)
-              </label>
-              <div className="mt-1">
-                <input
-                  type="date"
-                  name="Date-of-birth"
-                  id="expiration-date"
-                  autoComplete="cc-exp"
-                  className="block h-10 w-full rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
-                />
-              </div>
+            <label htmlFor="date">Date</label>
+            
+            <NepaliDatePicker inputClassName="form-control flex h-10 w-full rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                              className=""
+                              value={date}
+                              onChange={(value: string) => setDate(value)}
+                              options={{ calenderLocale: "ne", valueLocale: "en" }} />
               <div className="mt-6 grid grid-cols-1 gap-x-4 gap-y-6 sm:grid-cols-3">
                 <div className="sm:col-span-3">
                   <label
