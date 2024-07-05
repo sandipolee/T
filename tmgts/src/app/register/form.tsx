@@ -8,7 +8,6 @@ import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -25,6 +24,7 @@ import {
 } from "@/components/ui/select";
 import { NepaliDatePicker } from "nepali-datepicker-reactjs";
 import { useState } from "react";
+import FormSchema from "./form_schema";
 
 const pick_location = [
   {
@@ -69,20 +69,20 @@ const pick_location = [
   },
 ];
 
-const FormSchema = z.object({
-  name: z.string().min(2, {
-    message: "Name must be at least 2 characters.",
-  }),
-  phone: z.string().min(10, {
-    message: "phonemost be 10 characters.",
-  }),
-  location: z.string(),
-  dob:z.string(),
-  gender: z.enum(["male", "female", "other"], {
-    required_error: "Gender is required",
-  }),
-})
-;
+
+  const getCourses = (selectedClass: string) => {
+    switch (selectedClass) {
+      case '11':
+        return ['S1', 'S2', 'S3', 'S4', 'S5' ];
+      case '12':
+        return ['M1', 'M2', 'M3', 'M4', 'M5' ];
+      case 'bachelor':
+        return ['BCA', 'BBS', 'BSC'];
+      default:
+        return [];
+    }
+  }
+
 
 function onSubmit(data: z.infer<typeof FormSchema>) {
   toast( <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
@@ -97,8 +97,6 @@ export function InputForm() {
     defaultValues: {
       name: "",
       phone: "",
-      location: "",
-      dob:""
     },
   });
   const listItems = pick_location.map((data, index) => (
@@ -200,7 +198,54 @@ export function InputForm() {
                     <SelectItem value="other">Other</SelectItem>
                     </SelectContent>
                   </Select>
-
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="class"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel> Class </FormLabel>
+                <FormControl>
+                <Select onValueChange={field.onChange}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select location" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                    <SelectItem value="11">11</SelectItem>
+                    <SelectItem value="12">12</SelectItem>
+                    <SelectItem value="bachelor">Bachelor</SelectItem>
+                    </SelectContent>
+                  </Select>
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="course"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel> course </FormLabel>
+                <FormControl>
+                <Select onValueChange={field.onChange}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select location" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                    <SelectItem value="11">11</SelectItem>
+                    <SelectItem value="12">12</SelectItem>
+                    <SelectItem value="bachelor">Bachelor</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </FormControl>
                 <FormMessage />
               </FormItem>
