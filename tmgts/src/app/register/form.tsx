@@ -203,6 +203,7 @@ export function InputForm() {
               </FormItem>
             )}
           />
+          <div  className=" grid grid-cols-2 gap-4">
           <FormField
             control={form.control}
             name="class"
@@ -213,7 +214,7 @@ export function InputForm() {
                 <Select onValueChange={field.onChange}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select location" />
+                        <SelectValue placeholder="class" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -237,7 +238,7 @@ export function InputForm() {
                 <Select onValueChange={field.onChange}>
                     <FormControl>
                       <SelectTrigger>
-                        <SelectValue placeholder="Select location" />
+                        <SelectValue placeholder="course" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
@@ -251,6 +252,8 @@ export function InputForm() {
               </FormItem>
             )}
           />
+          </div>
+          
           
           <Button type="submit">Submit</Button>
         </form>
