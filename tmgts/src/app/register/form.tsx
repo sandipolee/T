@@ -126,7 +126,7 @@ export function InputForm() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className="w-2/3 space-y-6"
+          className=""
         >
           <FormField
             control={form.control}
@@ -271,7 +271,7 @@ export function InputForm() {
             />
           </div>
 
-          <Button type="submit">Submit</Button>
+          <Button className="w-full" type="submit">Submit</Button>
         </form>
       </Form>
     </>
