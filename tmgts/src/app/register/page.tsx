@@ -9,7 +9,6 @@ import { useForm } from 'react-hook-form';
 import { InputForm } from "./form";
 
 
-
 const Register = () => {
   return (
     <>

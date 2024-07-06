@@ -25,6 +25,7 @@ import {
 import { NepaliDatePicker } from "nepali-datepicker-reactjs";
 import { useState } from "react";
 import FormSchema from "./form_schema";
+import { Value } from "@radix-ui/react-select";
 
 const pick_location = [
   {
@@ -69,29 +70,17 @@ const pick_location = [
   },
 ];
 
-
-  const getCourses = (selectedClass: string) => {
-    switch (selectedClass) {
-      case '11':
-        return ['S1', 'S2', 'S3', 'S4', 'S5' ];
-      case '12':
-        return ['M1', 'M2', 'M3', 'M4', 'M5' ];
-      case 'bachelor':
-        return ['BCA', 'BBS', 'BSC'];
-      default:
-        return [];
-    }
-  }
-
-
 function onSubmit(data: z.infer<typeof FormSchema>) {
-  toast( <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-    <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-  </pre>);
-  
+  toast(
+    <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+      <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+    </pre>
+  );
 }
 
 export function InputForm() {
+  // let courseItems:React.ReactNode;
+
   const form = useForm<z.infer<typeof FormSchema>>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
@@ -103,8 +92,33 @@ export function InputForm() {
     // eslint-disable-next-line react/jsx-key
     <SelectItem value={data.value}> {data.display} </SelectItem>
   ));
+ 
 
-  const [date, setDate] = useState<string>("");
+  const [course, setsourse] = useState(["defont"]);
+
+  // let course: string[] = ["defont"];
+
+  function handleClassChange(value: string) {
+    console.log(value);
+    
+
+    if (value == "11") {
+     setsourse( ["M1", "M2", "M3"])
+    } else if (value == "12") {
+      setsourse( ["M1", "M2", "M3"])
+      
+    }else if (value == "bachelor") {
+      setsourse(  ["BCA", "BBS"])
+      
+    }else {
+      setsourse( [""])      
+    }
+
+    console.log(course);
+
+    
+    
+  }
 
   return (
     <>
@@ -170,7 +184,7 @@ export function InputForm() {
                   <NepaliDatePicker
                     inputClassName="form-control flex h-10 w-full rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
                     className="mt-2"
-                    value= "" 
+                    value=""
                     onChange={field.onChange}
                     options={{ calenderLocale: "ne", valueLocale: "en" }}
                   />
@@ -186,17 +200,16 @@ export function InputForm() {
               <FormItem>
                 <FormLabel> Gender</FormLabel>
                 <FormControl>
-                <Select onValueChange={field.onChange}>
+                  <Select onValueChange={field.onChange}>
                     <FormControl>
                       <SelectTrigger>
                         <SelectValue placeholder="Select location" />
                       </SelectTrigger>
                     </FormControl>
                     <SelectContent>
-                    
-                    <SelectItem value="male">Male</SelectItem>
-                    <SelectItem value="female">Female</SelectItem>
-                    <SelectItem value="other">Other</SelectItem>
+                      <SelectItem value="male">Male</SelectItem>
+                      <SelectItem value="female">Female</SelectItem>
+                      <SelectItem value="other">Other</SelectItem>
                     </SelectContent>
                   </Select>
                 </FormControl>
@@ -204,58 +217,60 @@ export function InputForm() {
               </FormItem>
             )}
           />
-          <div  className=" grid grid-cols-2 gap-4">
-          <FormField
-            control={form.control}
-            name="class"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel> Class </FormLabel>
-                <FormControl>
-                <Select onValueChange={field.onChange}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="class" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                    <SelectItem value="11">11</SelectItem>
-                    <SelectItem value="12">12</SelectItem>
-                    <SelectItem value="bachelor">Bachelor</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="course"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel> course </FormLabel>
-                <FormControl>
-                <Select onValueChange={field.onChange}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="course" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                    <SelectItem value="11">11</SelectItem>
-                    <SelectItem value="12">12</SelectItem>
-                    <SelectItem value="bachelor">Bachelor</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          <div className=" grid grid-cols-2 gap-4">
+            <FormField
+              control={form.control}
+              name="class"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel> Class </FormLabel>
+                  <FormControl>
+                    <Select onValueChange={(value:string)=>{handleClassChange(value) ; field.onChange(value)} }>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="class" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="11">11</SelectItem>
+                        <SelectItem value="12">12</SelectItem>
+                        <SelectItem value="bachelor">Bachelor</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="course"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel> course </FormLabel>
+                  <FormControl>
+                    <Select onValueChange={field.onChange}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="course" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {
+                          course.map((data) => (
+                            // eslint-disable-next-line react/jsx-key
+                            <SelectItem value={data}> {data} </SelectItem>
+                          ))
+                        }
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </div>
-          
-          
+
           <Button type="submit">Submit</Button>
         </form>
       </Form>
