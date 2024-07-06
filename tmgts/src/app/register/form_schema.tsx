@@ -34,6 +34,19 @@ const FormSchema = z.object({
     required_error: "Class is required",
   }),
   course: z.string().min(1, { message: "Course is required" }),
+  acceptTerms: z
+    .boolean()
+    .describe("Accept terms and conditions.")
+    .refine((value) => value, {
+      message: "You must accept the terms and conditions.",
+      path: ["acceptTerms"],
+    }),
+    travlingDate: z
+    .string()
+    .refine((date) => !isNaN(Date.parse(date)), {
+      message: "Invalid date format",
+    })
+    .transform((date) => new Date(date)),
 });
 
 export default FormSchema;

@@ -14,9 +14,8 @@ const Register = () => {
     <>
       <Header></Header>
       <div className="h-full mx-auto w-full max-w-screen-x1 px-2.5 md:px-20 items-center">
-      <div className="grid grid-cols-2 gap-10 py-10 max-sm:grid-cols-none max-sm:px-4">
+      
       <InputForm></InputForm>
-    </div>
       </div>
       <Footer></Footer>
     </>
