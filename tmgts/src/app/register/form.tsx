@@ -100,6 +100,7 @@ export function InputForm() {
     },
   });
   const listItems = pick_location.map((data, index) => (
+    // eslint-disable-next-line react/jsx-key
     <SelectItem value={data.value}> {data.display} </SelectItem>
   ));
 
