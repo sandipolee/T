@@ -32,7 +32,7 @@ async function getData(): Promise<Payment[]> {
   ]
 }
 
-const dashboard=async ()=> {
+const Dasboard=async ()=> {
   const data = await getData()
   return (
     <div className="grid min-h-screen w-full md:grid-cols-[220px_1fr] lg:grid-cols-[280px_1fr]">
@@ -49,7 +49,7 @@ const dashboard=async ()=> {
   )
 }
 
-export default dashboard;
+export default Dasboard;
 
 
 
