@@ -35,7 +35,7 @@ const FormSchema = z.object({
   }),
   course: z.string().min(1, { message: "Course is required" }),
   acceptTerms: z
-    .boolean()
+    .boolean().default(false)
     .describe("Accept terms and conditions.")
     .refine((value) => value, {
       message: "You must accept the terms and conditions.",
