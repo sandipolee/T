@@ -369,7 +369,10 @@ export function InputForm() {
                 <FormItem >
                   <FormControl>
                     <div className="items-top flex space-x-2 my-6">
-                    <Checkbox />
+                    <Checkbox
+                  checked={field.value}
+                  onCheckedChange={field.onChange}
+                />
                       
                       <div className="grid gap-1.5 leading-none">
                         <label
