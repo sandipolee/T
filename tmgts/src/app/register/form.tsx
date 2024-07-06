@@ -271,7 +271,7 @@ export function InputForm() {
             />
           </div>
 
-          <Button className="w-full" type="submit">Submit</Button>
+          <Button className="w-full t-10" type="submit">Submit</Button>
         </form>
       </Form>
     </>
