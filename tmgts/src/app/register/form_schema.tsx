@@ -5,7 +5,16 @@ const FormSchema = z.object({
   name: z.string().min(2, {
     message: "Name must be at least 2 characters.",
   }),
+  fathers_name: z.string().min(2, {
+    message: "Name must be at least 2 characters.",
+  }),
+  mothers_name: z.string().min(2, {
+    message: "Name must be at least 2 characters.",
+  }),
   phone: z.string().min(10, {
+    message: "phonemost be 10 characters.",
+  }),
+  parents_phone: z.string().min(10, {
     message: "phonemost be 10 characters.",
   }),
   location: z.string().min(2, {

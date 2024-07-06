@@ -126,7 +126,7 @@ export function InputForm() {
       <Form {...form}>
         <form
           onSubmit={form.handleSubmit(onSubmit)}
-          className=""
+          className="space-y-3"
         >
           <FormField
             control={form.control}
@@ -149,6 +149,30 @@ export function InputForm() {
                 <FormLabel>Phone</FormLabel>
                 <FormControl>
                   <Input placeholder="Phone" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="gender"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel> Gender</FormLabel>
+                <FormControl>
+                  <Select onValueChange={field.onChange}>
+                    <FormControl>
+                      <SelectTrigger>
+                        <SelectValue placeholder="Select location" />
+                      </SelectTrigger>
+                    </FormControl>
+                    <SelectContent>
+                      <SelectItem value="male">Male</SelectItem>
+                      <SelectItem value="female">Female</SelectItem>
+                      <SelectItem value="other">Other</SelectItem>
+                    </SelectContent>
+                  </Select>
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -193,30 +217,7 @@ export function InputForm() {
               </FormItem>
             )}
           />
-          <FormField
-            control={form.control}
-            name="gender"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel> Gender</FormLabel>
-                <FormControl>
-                  <Select onValueChange={field.onChange}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select location" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="male">Male</SelectItem>
-                      <SelectItem value="female">Female</SelectItem>
-                      <SelectItem value="other">Other</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          
           <div className=" grid grid-cols-2 gap-4">
             <FormField
               control={form.control}
@@ -269,8 +270,47 @@ export function InputForm() {
                 </FormItem>
               )}
             />
-          </div>
+            <FormField
+            control={form.control}
+            name="fathers_name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Fathers Name</FormLabel>
+                <FormControl>
+                  <Input placeholder="name" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="mothers_name"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Mother's Name</FormLabel>
+                <FormControl>
+                  <Input placeholder="name" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="parents_phone"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Parent's Phone</FormLabel>
+                <FormControl>
+                  <Input placeholder="Phone" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
 
+          </div>
           <Button className="w-full t-10" type="submit">Submit</Button>
         </form>
       </Form>
