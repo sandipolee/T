@@ -1,11 +1,8 @@
 "use client";
 import { Header } from "../component/header";
-import { useState } from "react";
 import Footer from "../component/footer";
-import { NepaliDatePicker } from "nepali-datepicker-reactjs";
 import "nepali-datepicker-reactjs/dist/index.css"
 import React from 'react';
-import { useForm } from 'react-hook-form';
 import { InputForm } from "./form";
 
 

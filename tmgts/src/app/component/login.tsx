@@ -10,7 +10,7 @@ export function Login() {
           <div className="mb-2 flex justify-center">
           <Image 
           src="./logo.png"
-      alt="Landscape picture"
+      alt="logo"
       className='size-20'
       />
           </div>
