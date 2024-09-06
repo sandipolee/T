@@ -1,3 +1,5 @@
+'use client'
+
 import Image from "next/image"
 import Link from "next/link"
 import {
@@ -61,15 +63,113 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
-import SideBar from "./sidebar"
-import DashboardHeader from "./DashBoardHeader"
-
-export default function Component() {
+export function Dashboard() {
   return (
     <div className="flex min-h-screen w-full bg-muted/40">
-      <SideBar/>
+      <aside className="fixed left-0 top-0 z-20 h-full w-64 border-r bg-background">
+        <div className="flex h-full flex-col">
+          <div className="flex-1 overflow-y-auto p-4">
+            <nav className="flex flex-col gap-4">
+              <Link
+                href="#"
+                className="flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-primary-foreground"
+              >
+                <GraduationCap className="h-5 w-5" />
+                <span className="text-lg font-semibold">School Transport</span>
+              </Link>
+              <Link
+                href="#"
+                className="flex items-center gap-4 rounded-lg px-4 py-2 text-muted-foreground hover:text-foreground"
+              >
+                <Home className="h-5 w-5" />
+                Dashboard
+              </Link>
+              <Link
+                href="#"
+                className="flex items-center gap-4 rounded-lg px-4 py-2 text-muted-foreground hover:text-foreground"
+              >
+                <Bus className="h-5 w-5" />
+                Routes
+              </Link>
+              <Link
+                href="#"
+                className="flex items-center gap-4 rounded-lg bg-accent px-4 py-2 text-accent-foreground"
+              >
+                <Users2 className="h-5 w-5" />
+                Students
+              </Link>
+              <Link
+                href="#"
+                className="flex items-center gap-4 rounded-lg px-4 py-2 text-muted-foreground hover:text-foreground"
+              >
+                <LineChart className="h-5 w-5" />
+                Reports
+              </Link>
+            </nav>
+          </div>
+          <div className="border-t p-4">
+            <Link
+              href="#"
+              className="flex items-center gap-4 rounded-lg px-4 py-2 text-muted-foreground hover:text-foreground"
+            >
+              <Settings className="h-5 w-5" />
+              Settings
+            </Link>
+          </div>
+        </div>
+      </aside>
       <div className="flex flex-1 flex-col pl-64">
-        <DashboardHeader></DashboardHeader>
+        <header className="sticky top-0 z-10 flex h-14 items-center gap-4 border-b bg-background px-6">
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbLink asChild>
+                  <Link href="#">Dashboard</Link>
+                </BreadcrumbLink>
+              </BreadcrumbItem>
+              <BreadcrumbSeparator />
+              <BreadcrumbItem>
+                <BreadcrumbPage>Students</BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+          <div className="ml-auto flex items-center gap-4">
+            <div className="relative">
+              <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
+              <Input
+                type="search"
+                placeholder="Search..."
+                className="w-[200px] pl-8 md:w-[300px]"
+              />
+            </div>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="rounded-full"
+                >
+                  <Image
+                    src="/placeholder-user.jpg"
+                    width={32}
+                    height={32}
+                    alt="Avatar"
+                    className="rounded-full"
+                  />
+                  <span className="sr-only">Toggle user menu</span>
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuLabel>My Account</DropdownMenuLabel>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>Settings</DropdownMenuItem>
+                <DropdownMenuItem>Support</DropdownMenuItem>
+                <DropdownMenuSeparator />
+                <DropdownMenuItem>Logout</DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+          </div>
+        </header>
         <main className="flex-1 space-y-4 p-8 pt-6">
           <div className="flex items-center justify-between">
             <h2 className="text-3xl font-bold tracking-tight">Students</h2>

@@ -9,9 +9,12 @@ export function Login() {
         <div className="xl:mx-auto xl:w-full xl:max-w-sm 2xl:max-w-md">
           <div className="mb-2 flex justify-center">
           <Image 
-          src="./logo.png"
+          src="/logo.png"
       alt="logo"
       className='size-20'
+      width={40}
+      height={40}
+
       />
           </div>
           <h2 className="text-center text-2xl font-bold leading-tight text-black">

@@ -1,6 +1,9 @@
 import { Value } from "@radix-ui/react-select";
 import { z } from "zod";
 
+const MAX_UPLOAD_SIZE = 1024 * 1024 * 1; // 1MB
+
+
 const FormSchema = z.object({
   name: z.string().min(2, {
     message: "Name must be at least 2 characters.",
@@ -47,6 +50,14 @@ const FormSchema = z.object({
       message: "Invalid date format",
     })
     .transform((date) => new Date(date)),
+    image:  z
+    .instanceof(File)
+    .refine((file) => file.size <= MAX_UPLOAD_SIZE, {
+      message: "File size must be less than 1MB.",
+    })
+    .refine((file) => ["image/jpeg", "image/png", "image/gif"].includes(file.type), {
+      message: "Only jpg, png, and gif formats are allowed.",
+    }),
 });
 
 export default FormSchema;

@@ -24,7 +24,7 @@ import {
 } from "@/components/ui/select";
 import { NepaliDatePicker } from "nepali-datepicker-reactjs";
 import { useState } from "react";
-import FormSchema from "./form_schema";
+import FormSchema from "../../schema/students";
 import { Value } from "@radix-ui/react-select";
 import { Separator } from "@/components/ui/separator";
 import { Checkbox } from "@/components/ui/checkbox";
@@ -328,6 +328,20 @@ export function InputForm() {
                       onChange={field.onChange}
                       options={{ calenderLocale: "ne", valueLocale: "en" }}
                     />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+             
+            />
+            <FormField
+              control={form.control}
+              name="image"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel htmlFor="picture">Picture</FormLabel>
+                  <FormControl>
+                  <Input id="picture" accept="image/png, image/jpeg" type="file"/>
                   </FormControl>
                   <FormMessage />
                 </FormItem>
