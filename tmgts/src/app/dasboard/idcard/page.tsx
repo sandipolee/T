@@ -2,7 +2,7 @@
 import type { NextPage } from 'next'
 import IdCard from './idcard'
 import Navbar from '../navbar'
-import Sidebar from '../sidebar'
+import Sidebar from '../../component/sidebar'
 import { Button } from '@/components/ui/button'
 
 const Home: NextPage = () => {

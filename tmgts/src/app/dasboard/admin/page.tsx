@@ -61,8 +61,8 @@ import {
   TableRow,
 } from "@/components/ui/table"
 
-import SideBar from "../component/sidebar"
-import DashboardHeader from "../component/DashBoardHeader"
+import SideBar from "@/app/component/sidebar"
+import DashboardHeader from "@/app/component/DashBoardHeader"
 
 export default function Component() {
   return (
