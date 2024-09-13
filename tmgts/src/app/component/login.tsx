@@ -21,7 +21,9 @@ export function Login() {
            Admin
           </h2>
           
-          <form action="#" method="POST" className="mt-8">
+          <form action= {async()=> {
+           
+          }} method="POST" className="mt-8">
             <div className="space-y-5">
               <div>
                 <label htmlFor="" className="text-base font-medium text-gray-900">

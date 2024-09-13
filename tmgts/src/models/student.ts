@@ -16,9 +16,6 @@ export interface Student extends Document{
     profilePic:File,
     verifyedbyadmin:boolean,
     registrationDate:Date
-
-
-
 }
 
 const StudentSchema: Schema<Student> = new Schema({

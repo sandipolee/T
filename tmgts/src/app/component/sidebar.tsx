@@ -5,7 +5,10 @@ import {
   GraduationCap,
   Settings,
   Users2,
+  IdCard,
+  CircleUserRound
 } from "lucide-react";
+
 
 import Link from "next/link";
 
@@ -44,12 +47,12 @@ const SideBar = () => {
               Students
             </Link>
             <Link
-              href="#"
-              className="flex items-center gap-4 rounded-lg px-4 py-2 text-muted-foreground hover:text-foreground"
-            >
-              <LineChart className="h-5 w-5" />
-              Reports
-            </Link>
+                href="#"
+                className="flex items-center gap-4 rounded-lg px-4 py-2 text-muted-foreground hover:text-foreground"
+              >
+                <IdCard className="h-5 w-5" />
+                ID-Cards
+              </Link>
           </nav>
         </div>
         <div className="border-t p-4">

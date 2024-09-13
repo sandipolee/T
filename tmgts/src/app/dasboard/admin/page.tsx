@@ -1,5 +1,5 @@
 import Image from "next/image"
-import Link from "next/link"
+
 import {
   Bus,
   ChevronLeft,
@@ -15,15 +15,8 @@ import {
   Users2,
 } from "lucide-react"
 
-import { Badge } from "@/components/ui/badge"
-import {
-  Breadcrumb,
-  BreadcrumbItem,
-  BreadcrumbLink,
-  BreadcrumbList,
-  BreadcrumbPage,
-  BreadcrumbSeparator,
-} from "@/components/ui/breadcrumb"
+
+
 import { Button } from "@/components/ui/button"
 import {
   Card,
@@ -63,8 +56,15 @@ import {
 
 import SideBar from "@/app/component/sidebar"
 import DashboardHeader from "@/app/component/DashBoardHeader"
+import ProfileUploder from "@/app/component/profileuploder"
+import { auth } from "@/auth"
+import { redirect } from "next/navigation"
 
-export default function Component() {
+export default async function Component() {
+
+  const session = await auth();
+  if(!session?.user) redirect("/login");
+  
   return (
     <div className="flex min-h-screen w-full bg-muted/40">
       <SideBar/>
