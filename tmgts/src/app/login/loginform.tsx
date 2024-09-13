@@ -11,7 +11,7 @@ export default function Loginform() {
     const [error, setError] = useState<string | null>(null);
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
       e.preventDefault();
-      const router= useRouter();
+     
   
       const data = new FormData(e.currentTarget);
       const username = data.get("username") as string;
@@ -32,7 +32,7 @@ export default function Loginform() {
             description: "login sucessfull",
           });
          
-         router.refresh();
+        
   
         }else {
           // console.log(error)
