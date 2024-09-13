@@ -1,5 +1,8 @@
 import mongoose from 'mongoose';
 
+const mangoURI="mongodb+srv://starksandip62:sandip12345@cluster0.zi0ex.mongodb.net?retryWrites=true&w=majority&appName=Cluster0"
+
+
 type ConnectionObject = {
   isConnected?: number;
 };
@@ -16,7 +19,7 @@ async function dbConnect(): Promise<void> {
   try {
     // Attempt to connect to the database
     const db = await mongoose.connect(
-      process.env.MONGODB_URI as string , {
+      mangoURI as string , {
         dbName : "tmgts"
       });
 
