@@ -3,11 +3,12 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
-
+import Image from "next/image"
 import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -28,6 +29,9 @@ import FormSchema from "../../schema/students";
 import { Value } from "@radix-ui/react-select";
 import { Separator } from "@/components/ui/separator";
 import { Checkbox } from "@/components/ui/checkbox";
+import { Upload, X } from "lucide-react";
+import { CardFooter } from "@/components/ui/card";
+import { Progress } from "@/components/ui/progress";
 
 const pick_location = [
   {
@@ -72,13 +76,6 @@ const pick_location = [
   },
 ];
 
-function onSubmit(data: z.infer<typeof FormSchema>) {
-  toast(
-    <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-      <code className="text-white">{JSON.stringify(data, null, 2)}</code>
-    </pre>
-  );
-}
 
 export function InputForm() {
   // let courseItems:React.ReactNode;
@@ -87,7 +84,7 @@ export function InputForm() {
     resolver: zodResolver(FormSchema),
     defaultValues: {
       name: "",
-      phone: "",
+      mobileNum: "",
     },
   });
   const listItems = pick_location.map((data, index) => (
@@ -112,8 +109,35 @@ export function InputForm() {
       setsourse([""]);
     }
 
-    console.log(course);
   }
+  const [imagePreview, setImagePreview] = useState<string | null>(null)
+  const [uploadProgress, setUploadProgress] = useState(0)
+  const [isUploading, setIsUploading] = useState(false)
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const file = e.target.files?.[0]
+    if (file) {
+      const reader = new FileReader()
+      reader.onloadend = () => {
+        setImagePreview(reader.result as string)
+      }
+      reader.readAsDataURL(file)
+      form.setValue('profilePic', file)
+    }
+  }
+
+  const handleRemove = () => {
+    setImagePreview(null)
+    form.reset()
+    setUploadProgress(0)
+  }
+  function onSubmit(data: z.infer<typeof FormSchema>) {
+    toast(
+      <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+        <code className="text-white">{JSON.stringify(data, null, 2)}</code>
+      </pre>
+    );
+  }
+  
 
   return (
     <>
@@ -140,7 +164,7 @@ export function InputForm() {
 
             <FormField
               control={form.control}
-              name="phone"
+              name="mobileNum"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>MOBILE NUMBER</FormLabel>
@@ -165,9 +189,9 @@ export function InputForm() {
                         </SelectTrigger>
                       </FormControl>
                       <SelectContent>
-                        <SelectItem value="male">Male</SelectItem>
-                        <SelectItem value="female">Female</SelectItem>
-                        <SelectItem value="other">Other</SelectItem>
+                        <SelectItem value="Male">Male</SelectItem>
+                        <SelectItem value="Female">Female</SelectItem>
+                        <SelectItem value="Other">Other</SelectItem>
                       </SelectContent>
                     </Select>
                   </FormControl>
@@ -253,7 +277,7 @@ export function InputForm() {
             </div>
             <FormField
               control={form.control}
-              name="fathers_name"
+              name="fathersname"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="uppercase">Fathers Name</FormLabel>
@@ -266,7 +290,7 @@ export function InputForm() {
             />
             <FormField
               control={form.control}
-              name="mothers_name"
+              name="mothername"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="uppercase">Mother's Name</FormLabel>
@@ -279,7 +303,7 @@ export function InputForm() {
             />
             <FormField
               control={form.control}
-              name="parents_phone"
+              name="parentsphone"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="uppercase">Parent's Phone</FormLabel>
@@ -296,7 +320,7 @@ export function InputForm() {
             <Separator />
             <FormField
               control={form.control}
-              name="location"
+              name="travellinglocation"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>TRAVELLING LOCATION</FormLabel>
@@ -334,19 +358,67 @@ export function InputForm() {
               )}
              
             />
-            <FormField
+             <FormField
               control={form.control}
-              name="image"
-              render={({ field }) => (
+              name="profilePic"
+              render={() => (
                 <FormItem>
-                  <FormLabel htmlFor="picture">Picture</FormLabel>
+                  <FormLabel>profile picture </FormLabel>
                   <FormControl>
-                  <Input id="picture" accept="image/png, image/jpeg" type="file"/>
+                    {!imagePreview ? (
+                      <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+                        <label htmlFor="image-upload" className="cursor-pointer">
+                          <div className="flex flex-col items-center">
+                            <Upload className="h-12 w-12 text-gray-400" />
+                            <span className="mt-2 text-sm font-medium text-gray-700">
+                              Click to upload
+                            </span>
+                            <span className="mt-1 text-xs text-gray-500">
+                               PNG, JPG (max. 1MB)
+                            </span>
+                          </div>
+                          <Input
+                            id="image-upload"
+                            type="file"
+                            accept="image/*"
+                            onChange={handleImageChange}
+                            className="hidden"
+                          />
+                        </label>
+                      </div>
+                    ) : (
+                      <div className="relative">
+                        <Image
+                          src={imagePreview}
+                          alt="Preview"
+                          width={200}
+                          height={200}
+                          className="rounded-md object-cover "
+                        />
+                        <Button
+                          type="button"
+                          variant="destructive"
+                          size="icon"
+                          className="absolute top-2 right-2"
+                          onClick={handleRemove}
+                        >
+                          <X className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    )}
                   </FormControl>
+                  <FormDescription>
+                    Upload an image file (max 1MB).
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
+            <CardFooter className="flex flex-col space-y-2">
+        {isUploading && (
+          <Progress value={uploadProgress} className="w-full" />
+        )}
+</CardFooter>
             <Separator />
             <h3 className="font-bold text-lg">
               विद्यार्थी तथा अभिभावकले पालना गर्नुपर्ने नियमहरु ः

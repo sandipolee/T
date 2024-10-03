@@ -3,6 +3,10 @@ import Image from "next/image";
 import { Header } from "./component/header";
 import Footer from "./component/footer";
 import Link from "next/link";
+import { cookies } from 'next/headers'
+ 
+const cookieStore = cookies()
+
 
 export default function Home() {
   return (

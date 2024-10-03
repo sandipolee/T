@@ -2,86 +2,68 @@ import NextAuth, { CredentialsSignin } from "next-auth";
 import Credential from "next-auth/providers/credentials";
 import { Admin } from "./models/admin";
 import dbConnect from "./lib/DBconnect";
-import bcrypt, { hash } from "bcryptjs";
+import bcrypt from "bcryptjs";
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   providers: [
     Credential({
-      name: "Credential",
+      name: "Credentials",
       credentials: {
-        username: {
-          label: "username",
-          type: "String",
-        },
-        email: {
-          label: "email",
-          type: "text",
-        },
-        password: {
-          label: "password",
-          type: "password",
-        },
+        username: { label: "Username", type: "text" },
+        email: { label: "Email", type: "text" },
+        password: { label: "Password", type: "password" },
       },
-
       authorize: async (credentials) => {
-        const username = credentials.username as string;
-        const password = credentials.password as string;
+        const { username, password } = credentials;
 
-        dbConnect();
-        // const hashedpassword = hash("sandip12345", 10);
+        await dbConnect();
 
-        // Admin.create({
-        //   username: "olee123",
-        //   name: "sandip olee",
-        //   email: "starksandip62@gmail.com",
-        //   password:hashedpassword,
-        //   mobileNum: "9841095380",
-        //   gender: "male",
-        //   isMasterAdmin: true,
-        // });
+        // Find the user by username
+        const user = await Admin.findOne({ username }).select("+password");
+        if (!user) throw new CredentialsSignin({ cause: "Invalid user" });
 
-        const userdata = await Admin.findOne({ username })
-
-        const user = await Admin.findOne({ username }).select("password");
-        if (!user)
-          throw new CredentialsSignin({ cause: `invalid user ${user}` });
-        if (!user.password)
-          throw new CredentialsSignin({
-            cause: "username and password is not valid",
-          });
-
-        const isPasswordCorrect = await bcrypt.compare(password, user.password);
+        // Verify password
+        const isPasswordCorrect = await bcrypt.compare(password as string, user.password);
         if (!isPasswordCorrect)
-          throw new CredentialsSignin({ cause: "password  is  not mached " });
-        else return userdata;
+          throw new CredentialsSignin({ cause: "Password is incorrect" });
+
+        // Return the user data
+        return {
+          _id: user._id,
+          name: user.name,
+          username: user.username,
+          isMasterAdmin: user.isMasterAdmin,
+          email: user.email,
+        };
       },
     }),
   ],
   callbacks: {
     async jwt({ token, user }) {
-      // if (user) {
-      //   token._id = user._id?.toString(); // Convert ObjectId to string
-      //   token.isVerified = user.isMasterAdmin;
-      //   token.isAcceptingMessages = user.isAcceptingMessages;
-      //   token.username = user.username;
-      // }
+      // If the user is logging in, add the user data to the token
+      if (user) {
+        token.name=user.name;
+        token._id = user._id;
+        token.username = user.username;
+        token.isMasterAdmin = user.isMasterAdmin; // Add isMasterAdmin to the token
+      }
       return token;
     },
     async session({ session, token }) {
+
       if (token) {
-        // session.user._id = token._id;
-        // session.user.isVerified = token.isVerified;
-        // session.user.isAcceptingMessages = token.isAcceptingMessages;
-        // session.user.username = token.username;
+        session.user.name = token.name as string;
+        session.user._id = token._id as string;
+        session.user.username = token.username as string;
+        session.user.isMasterAdmin = token.isMasterAdmin as boolean;
       }
       return session;
     },
   },
   session: {
-    strategy: "jwt",
+    strategy: "jwt", // Use JWT strategy for sessions
   },
-
   pages: {
-    signIn: "/login",
+    signIn: "/login", // Redirect to the login page on sign-in
   },
 });

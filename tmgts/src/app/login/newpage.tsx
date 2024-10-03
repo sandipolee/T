@@ -1,61 +1,31 @@
-"use client";
-import { toast } from "@/components/ui/use-toast";
-import { credentialsLogin } from "./serverAction";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+'use client'
+
+import { useState } from 'react'
 import { Eye, EyeOff, Loader2 } from 'lucide-react'
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 
-export default function Loginform() {
-  const router = useRouter(); // Moved useRouter here
-
+export default function LoginPage() {
   const [showPassword, setShowPassword] = useState(false)
   const [isLoading, setIsLoading] = useState(false)
 
-  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsLoading(true);
-    const data = new FormData(e.currentTarget);
-    const username = data.get("username") as string;
-    const password = data.get("password") as string;
-
-    if (!username || !password) {
-      setIsLoading(false);
-      return toast({
-        variant: "destructive",
-        title: "Error",
-        description: "please provide all fields",
-      });
-     
-    } else {
-      const error = await credentialsLogin(username, password);
-
-      if (!error) {
-        toast({
-          variant: "sucess",
-          title: "Success",
-          description: "Login successful",
-        });
-        setIsLoading(false);
-        router.refresh(); // Refresh the page on successful login
-      } else {
-        toast({
-          variant: "destructive",
-          title: `${error}`,
-        });
-        setIsLoading(false);
-      }
-    }
-  };
+  const handleSubmit = async (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsLoading(true)
+    // Simulate login process
+    await new Promise(resolve => setTimeout(resolve, 2000))
+    setIsLoading(false)
+    // Here you would typically handle the actual login logic
+  }
 
   return (
-    <form onSubmit={handleSubmit} className="space-y-4">
+    
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-2">
               <Label htmlFor="username">Username</Label>
               <Input
-              name="username"
                 id="username"
                 type="text"
                 placeholder="Enter your username"
@@ -66,10 +36,10 @@ export default function Loginform() {
               <Label htmlFor="password">Password</Label>
               <div className="relative">
                 <Input
-                name="password"
                   id="password"
                   type={showPassword ? "text" : "password"}
                   placeholder="Enter your password"
+                  
                   required
                   className="pr-10"
                 />
@@ -89,7 +59,7 @@ export default function Loginform() {
             <Button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-yellow-500 hover:bg-yellow-400"
+              className="w-full"
             >
               {isLoading ? (
                 <>
@@ -101,5 +71,6 @@ export default function Loginform() {
               )}
             </Button>
           </form>
-  );
+       
+  )
 }

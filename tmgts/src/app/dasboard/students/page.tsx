@@ -1,5 +1,6 @@
-import Image from "next/image"
-import Link from "next/link"
+"use client"
+import { useState, } from "react"
+
 import {
   Bus,
   ChevronLeft,
@@ -12,7 +13,9 @@ import {
   PlusCircle,
   Search,
   Settings,
+  UserPlus,
   Users2,
+  X,
 } from "lucide-react"
 
 import { Badge } from "@/components/ui/badge"
@@ -34,6 +37,15 @@ import {
   CardTitle,
 } from "@/components/ui/card"
 import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog"
+import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
@@ -43,6 +55,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
+import { Label } from "@/components/ui/label"
 import {
   Pagination,
   PaginationContent,
@@ -53,6 +66,13 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination"
 import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select"
+import {
   Table,
   TableBody,
   TableCell,
@@ -60,196 +80,80 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-
-import SideBar from "@/app/component/sidebar"
-import DashboardHeader from "@/app/component/DashBoardHeader"
-import ProfileUploder from "@/app/component/profileuploder"
+import { AddStudent } from "./addStudent"
+import StudentTable from "./studentTable"
 
 export default function Component() {
+  const [editModalOpen, setEditModalOpen] = useState(false)
+  const [viewModalOpen, setViewModalOpen] = useState(false)
+  const [addModalOpen, setAddModalOpen] = useState(false)
+  const [editingStudent, setEditingStudent] = useState(null)
+  const [viewingStudent, setViewingStudent] = useState(null)
+  const [newStudent, setNewStudent] = useState({
+    name: "",
+    mobileNum: "",
+    gender: "",
+    dob: "",
+    class: "",
+    course: "",
+    fathersname: "",
+    mothername: "",
+    travellinglocation: "",
+    travellingstartdate: "",
+    profilePic: "",
+  })
+  const [isFormVisible, setIsFormVisible] = useState(false)
+
+
+  const openEditModal = (student:any) => {
+    setEditingStudent(student)
+    setEditModalOpen(true)
+  }
+
+  const closeEditModal = () => {
+    setEditingStudent(null)
+    setEditModalOpen(false)
+  }
+
+  const openViewModal = (student:any) => {
+    setViewingStudent(student)
+    setViewModalOpen(true)
+  }
+
+  const closeViewModal = () => {
+    setViewingStudent(null)
+    setViewModalOpen(false)
+  }
   return (
     <div className="flex min-h-screen w-full bg-muted/40">
-      <SideBar/>
-      <div className="flex flex-1 flex-col pl-64">
-        <DashboardHeader></DashboardHeader>
+     
+
         <main className="flex-1 space-y-4 p-8 pt-6">
-          <div className="flex items-center justify-between">
-            <h2 className="text-3xl font-bold tracking-tight">Students</h2>
-            <div className="flex items-center gap-4">
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="outline" size="sm" className="ml-auto h-8">
-                    <ListFilter className="mr-2 h-4 w-4" />
-                    Filter
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="end" className="w-[150px]">
-                  <DropdownMenuLabel>Filter by</DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuCheckboxItem checked>
-                    All Routes
-                  </DropdownMenuCheckboxItem>
-                  <DropdownMenuCheckboxItem>Route A</DropdownMenuCheckboxItem>
-                  <DropdownMenuCheckboxItem>Route B</DropdownMenuCheckboxItem>
-                  <DropdownMenuCheckboxItem>Route C</DropdownMenuCheckboxItem>
-                </DropdownMenuContent>
-              </DropdownMenu>
-              <Button size="sm" className="h-8">
-                <PlusCircle className="mr-2 h-4 w-4" />
-                Add Student
-              </Button>
-            </div>
+          
+          {!isFormVisible && (
+        <Button onClick={() => setIsFormVisible(true)} variant="outline">
+          <UserPlus className="mr-2 h-4 w-4" /> Add Student
+        </Button>
+      )}
+
+      {isFormVisible && (
+        <div className="bg-gray-100 p-4 rounded-lg mb-4">
+          <div className="flex justify-between items-center mb-4">
+            <h3 className="text-lg font-semibold">Add New Student</h3>
+            <Button variant="ghost" size="icon" onClick={() => setIsFormVisible(false)}>
+              <X className="h-4 w-4" />
+            </Button>
           </div>
-          <Card>
-            <CardHeader>
-              <CardTitle>All Students</CardTitle>
-              <CardDescription>
-                A list of all students using the school transport system.
-              </CardDescription>
-            </CardHeader>
-            <CardContent>
-              <Table>
-                <TableHeader>
-                  <TableRow>
-                    <TableHead className="w-[80px]">Avatar</TableHead>
-                    <TableHead>Name</TableHead>
-                    <TableHead>Pickup Location</TableHead>
-                    <TableHead>Class</TableHead>
-                    <TableHead>Course</TableHead>
-                    <TableHead className="text-right">Actions</TableHead>
-                  </TableRow>
-                </TableHeader>
-                <TableBody>
-                  <TableRow>
-                    <TableCell>
-                      <Image
-                        src="/placeholder-user.jpg"
-                        alt="Student avatar"
-                        width={40}
-                        height={40}
-                        className="rounded-full"
-                      />
-                    </TableCell>
-                    <TableCell className="font-medium">
-                      Alice Johnson
-                    </TableCell>
-                    <TableCell>123 Maple Street</TableCell>
-                    <TableCell>10th Grade</TableCell>
-                    <TableCell>Science</TableCell>
-                    <TableCell className="text-right">
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" size="sm">
-                            <MoreHorizontal className="h-4 w-4" />
-                            <span className="sr-only">Actions</span>
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuItem>View Details</DropdownMenuItem>
-                          <DropdownMenuItem>Edit Info</DropdownMenuItem>
-                          <DropdownMenuSeparator />
-                          <DropdownMenuItem>Remove from Route</DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <Image
-                        src="/placeholder-user.jpg"
-                        alt="Student avatar"
-                        width={40}
-                        height={40}
-                        className="rounded-full"
-                      />
-                    </TableCell>
-                    <TableCell className="font-medium">
-                      Bob Smith
-                    </TableCell>
-                    <TableCell>456 Oak Avenue</TableCell>
-                    <TableCell>11th Grade</TableCell>
-                    <TableCell>Mathematics</TableCell>
-                    <TableCell className="text-right">
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" size="sm">
-                            <MoreHorizontal className="h-4 w-4" />
-                            <span className="sr-only">Actions</span>
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuItem>View Details</DropdownMenuItem>
-                          <DropdownMenuItem>Edit Info</DropdownMenuItem>
-                          <DropdownMenuSeparator />
-                          <DropdownMenuItem>Remove from Route</DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </TableCell>
-                  </TableRow>
-                  <TableRow>
-                    <TableCell>
-                      <Image
-                        src="/placeholder-user.jpg"
-                        alt="Student avatar"
-                        width={40}
-                        height={40}
-                        className="rounded-full"
-                      />
-                    </TableCell>
-                    <TableCell className="font-medium">
-                      Carol Davis
-                    </TableCell>
-                    <TableCell>789 Pine Road</TableCell>
-                    <TableCell>9th Grade</TableCell>
-                    <TableCell>English</TableCell>
-                    <TableCell className="text-right">
-                      <DropdownMenu>
-                        <DropdownMenuTrigger asChild>
-                          <Button variant="ghost" size="sm">
-                            <MoreHorizontal className="h-4 w-4" />
-                            <span className="sr-only">Actions</span>
-                          </Button>
-                        </DropdownMenuTrigger>
-                        <DropdownMenuContent align="end">
-                          <DropdownMenuItem>View Details</DropdownMenuItem>
-                          <DropdownMenuItem>Edit Info</DropdownMenuItem>
-                          <DropdownMenuSeparator />
-                          <DropdownMenuItem>Remove from Route</DropdownMenuItem>
-                        </DropdownMenuContent>
-                      </DropdownMenu>
-                    </TableCell>
-                  </TableRow>
-                </TableBody>
-              </Table>
-            </CardContent>
-            <CardFooter>
-              <Pagination>
-                <PaginationContent>
-                  <PaginationItem>
-                    <PaginationPrevious href="#" />
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink href="#">1</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink href="#" isActive>
-                      2
-                    </PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationLink href="#">3</PaginationLink>
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationEllipsis />
-                  </PaginationItem>
-                  <PaginationItem>
-                    <PaginationNext href="#" />
-                  </PaginationItem>
-                </PaginationContent>
-              </Pagination>
-            </CardFooter>
-          </Card>
+          <AddStudent></AddStudent>
+        </div>
+      )}
+          
+            <StudentTable>
+
+            </StudentTable>
+            
         </main>
-      </div>
+
     </div>
   )
 }

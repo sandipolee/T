@@ -7,14 +7,6 @@ import Sidebar from '../../component/sidebar'
 
 const Home: NextPage = () => {
   return (
-
-    <div className="flex min-h-screen w-full bg-muted/40">
-
-      <Sidebar/>
-
-      <div className="flex flex-1 flex-col pl-64">
-        
-      <DashboardHeader/>
       <main className="flex-1 space-y-4 p-8 pt-6">
       <div className="">
       <h2 className="text-3xl font-bold tracking-tight">ID Card</h2>
@@ -38,9 +30,7 @@ const Home: NextPage = () => {
       </div>
           </div>
         </main>
-      </div>
-    </div>
-    
+      
       
   )
 }
