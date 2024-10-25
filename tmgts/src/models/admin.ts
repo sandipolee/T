@@ -24,3 +24,12 @@ const adminSchema: Schema<AdminDocument> = new Schema({
 
 // Export model with correct naming conventions
 export const Admin = mongoose.models?.admins || mongoose.model<AdminDocument>("admins", adminSchema);
+
+export async function connectToDatabase() {
+  if (mongoose.connection.readyState >= 1) return
+
+  const uri = process.env.MONGODB_URI
+  if (!uri) throw new Error('MONGODB_URI is not defined')
+
+  return mongoose.connect(uri)
+}
