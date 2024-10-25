@@ -1,8 +1,9 @@
 import NextAuth, { CredentialsSignin } from "next-auth";
 import Credential from "next-auth/providers/credentials";
-import { Admin } from "./models/admin";
+import { connectToDatabase } from './models/admin';
 import dbConnect from "./lib/DBconnect";
 import bcrypt from "bcryptjs";
+import { Admin } from "./models/admin";
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   providers: [
@@ -67,3 +68,8 @@ export const { auth, handlers, signIn, signOut } = NextAuth({
     signIn: "/login", // Redirect to the login page on sign-in
   },
 });
+
+export async function authenticate(/* params */) {
+  // Remove any direct database operations from here
+  // Instead, you might want to call an API route for authentication
+}
