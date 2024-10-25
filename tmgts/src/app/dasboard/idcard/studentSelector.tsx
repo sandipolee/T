@@ -15,6 +15,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { IStudent } from '@/models/student'
 import { SearchX, Loader2 } from 'lucide-react'  // Import the SearchX and Loader2 icons
+import Image from 'next/image';
 
 interface Student {
   _id: string;
@@ -60,6 +61,8 @@ const SearchInput = React.memo(({ onSearch }: { onSearch: (value: string) => voi
     </div>
   );
 });
+
+SearchInput.displayName = 'SearchInput';
 
 export function StudentSelector({ selectedStudents, setSelectedStudents }: StudentSelectorProps) {
   const [page, setPage] = useState(1)
@@ -108,10 +111,12 @@ export function StudentSelector({ selectedStudents, setSelectedStudents }: Stude
       accessorKey: 'profilePic',
       header: 'Image',
       cell: ({ row }) => (
-        <img 
+        <Image 
           src={row.original.profilePic} 
           alt={row.original.name} 
-          className="w-10 h-10 rounded-full object-cover"
+          width={40}
+          height={40}
+          className="rounded-full object-cover"
         />
       ),
     },

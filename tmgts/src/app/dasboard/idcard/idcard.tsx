@@ -1,5 +1,6 @@
 // components/IdCard.tsx
 import React from "react";
+import Image from 'next/image';
 
 interface IdCardProps {
   studentName: string;
@@ -33,10 +34,12 @@ const IdCard: React.FC<IdCardProps> = ({
 
       <div className="flex p-2 h-[200px]">
         <div className="">
-          <img
+          <Image
             src={photoUrl}
-            alt="Student Photo "
-            className=" ml-3 w-[97px] h-[114px] border-3  border-blue-900 rounded-md"
+            alt="Student Photo"
+            width={97}
+            height={114}
+            className="ml-3 border-3 border-blue-900 rounded-md"
           />
           <div className="font-bold text-blue-900 uppercase  ml-2 mt-2 max-w-[140px]">{studentName}</div>
         </div>
@@ -63,17 +66,21 @@ const IdCard: React.FC<IdCardProps> = ({
       </div>
       <div className="bg-blue-900 text-white text-center py-1 text-sm">
         <div className="flex justify-center">
-          <img src="../idcardschoollogo.png" className="size-14 mr-7" />
+          <Image
+            src="/idcardschoollogo.png"
+            width={56}
+            height={56}
+            className="mr-7"
+            alt="School Logo"
+          />
           <div>
             <h1 className="font-bold text-base">
               GYAN JOTI SECONDARY SCHOOL
             </h1>
             <p>Tulsipur-06 Dang</p>
-        <p>082520955, 521773</p>
+            <p>082520955, 521773</p>
           </div>
         </div>
-
-        
       </div>
     </div>
   );

@@ -361,7 +361,7 @@ export function AddStudent() {
               name="mothername"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="uppercase">Mother's Name</FormLabel>
+                  <FormLabel className="uppercase">Mother&apos;s Name</FormLabel>
                   <FormControl>
                     <Input placeholder="name" {...field} />
                   </FormControl>
@@ -378,7 +378,7 @@ export function AddStudent() {
             name="parentsphone"
             render={({ field }) => (
               <FormItem>
-                <FormLabel className="uppercase">Parent's Phone</FormLabel>
+                <FormLabel className="uppercase">Parent&apos;s Phone</FormLabel>
                 <FormControl>
                   <Input placeholder="Phone" {...field} />
                 </FormControl>
