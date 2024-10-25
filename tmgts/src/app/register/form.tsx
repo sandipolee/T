@@ -222,7 +222,7 @@ export function InputForm() {
             <div className=" grid grid-cols-2 gap-4">
               <FormField
                 control={form.control}
-                name="class"
+                name="studentClass"
                 render={({ field }) => (
                   <FormItem>
                     <FormLabel className="uppercase"> Class </FormLabel>
@@ -293,7 +293,7 @@ export function InputForm() {
               name="mothername"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="uppercase">Mother's Name</FormLabel>
+                  <FormLabel className="uppercase">Mother&apos;s Name</FormLabel>
                   <FormControl>
                     <Input placeholder="name" {...field} />
                   </FormControl>
@@ -306,7 +306,7 @@ export function InputForm() {
               name="parentsphone"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="uppercase">Parent's Phone</FormLabel>
+                  <FormLabel className="uppercase">Parent&apos;s Phone</FormLabel>
                   <FormControl>
                     <Input placeholder="Phone" {...field} />
                   </FormControl>
@@ -340,7 +340,7 @@ export function InputForm() {
             />
             <FormField
               control={form.control}
-              name="travlingDate"
+              name="travellingstartdate"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>TRAVELLING Start DATE</FormLabel>
@@ -356,7 +356,6 @@ export function InputForm() {
                   <FormMessage />
                 </FormItem>
               )}
-             
             />
              <FormField
               control={form.control}
@@ -484,3 +483,4 @@ export function InputForm() {
     </>
   );
 }
+

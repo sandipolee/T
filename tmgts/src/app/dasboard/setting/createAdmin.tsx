@@ -45,13 +45,11 @@ interface Admin {
 const CreateAdmin = () => {
   const queryClient = useQueryClient();
 
-  const {
-    control,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<Admin>({
+  const form = useForm<Admin>({
     resolver: zodResolver(adminSchemaZod),
   });
+
+  const { control, handleSubmit, formState: { errors } } = form;
 
   const [formError, setFormError] = useState<string | null>(null);
 
@@ -88,12 +86,10 @@ const CreateAdmin = () => {
   };
 
   return (
-
-    
     <Card>
       <CardHeader>
         <CardContent>
-          <Form {...control}>
+          <Form {...form}>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <div className="grid grid-cols-2 gap-4">
                 <FormField
