@@ -33,7 +33,7 @@ import { Progress } from "@/components/ui/progress";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { motion, AnimatePresence } from "framer-motion"
+import { motion, AnimatePresence } from "framer-motion";
 
 const pick_location = [
   {
@@ -140,9 +140,7 @@ export function AddStudent() {
       };
       reader.readAsDataURL(file);
       form.setValue("profilePic", file);
-
     }
-    
   };
   const handleRemove = () => {
     setImagePreview(null);
@@ -152,31 +150,26 @@ export function AddStudent() {
 
   //*************** React query*********** */
 
-  const AddStudent = async (
-    formData: FormData
-  ): Promise<formStudent> => {
+  const AddStudent = async (formData: FormData): Promise<formStudent> => {
     const response = await axios.post("/api/students", formData, {
       headers: { "Content-Type": "multipart/form-data" },
     });
     return response.data;
   };
 
-
   const { mutate, isPending: isLoading } = useMutation<
-  formStudent,
+    formStudent,
     Error,
-   FormData
+    FormData
   >({
     mutationFn: AddStudent,
     onSuccess: () => {
-      
       toast({
         title: "Success",
         description: "student Upload sucessfull ",
       });
       form.reset();
       queryClient.invalidateQueries({ queryKey: ["students"] });
-     
     },
     onError: (error) => {
       setFormError(error.message);
@@ -184,8 +177,6 @@ export function AddStudent() {
   });
 
   async function onSubmit(data: Omit<formStudent, "_id">) {
-
-   
     if (!imageFile) {
       toast({
         variant: "destructive",
@@ -194,7 +185,7 @@ export function AddStudent() {
       });
       return;
     }
-   
+
     const formData = new FormData();
     formData.append("name", data.name);
     formData.append("mobileNum", data.mobileNum);
@@ -205,20 +196,22 @@ export function AddStudent() {
     formData.append("fathersname", data.fathersname);
     formData.append("mothername", data.mothername);
     formData.append("travellinglocation", data.travellinglocation);
-    formData.append("travellingstartdate", data.travellingstartdate.toISOString());
+    formData.append(
+      "travellingstartdate",
+      data.travellingstartdate.toISOString()
+    );
     formData.append("parentsphone", data.parentsphone);
     formData.append("profilePic", imageFile);
 
     mutate(formData);
-
   }
   return (
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className=" grid grid-cols-2 gap-10 pb-10 max-sm:grid-cols-none max-sm:px-4"
+        className=" grid grid-cols-2 gap-10  max-sm:grid-cols-none max-sm:px-4"
       >
-        <div className="space-y-4">
+        <div className="space-y-2">
           <FormField
             control={form.control}
             name="name"
@@ -245,6 +238,7 @@ export function AddStudent() {
               </FormItem>
             )}
           />
+          <div className=" grid grid-cols-2 gap-4">
           <FormField
             control={form.control}
             name="gender"
@@ -288,6 +282,8 @@ export function AddStudent() {
               </FormItem>
             )}
           />
+          </div>
+          
 
           <div className=" grid grid-cols-2 gap-4">
             <FormField
@@ -345,32 +341,38 @@ export function AddStudent() {
               )}
             />
           </div>
-          <FormField
-            control={form.control}
-            name="fathersname"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="uppercase">Fathers Name</FormLabel>
-                <FormControl>
-                  <Input placeholder="name" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="mothername"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="uppercase">Mother's Name</FormLabel>
-                <FormControl>
-                  <Input placeholder="name" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+          <div className=" grid grid-cols-2 gap-4">
+            {" "}
+            <FormField
+              control={form.control}
+              name="fathersname"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="uppercase">Fathers Name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="name" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="mothername"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="uppercase">Mother's Name</FormLabel>
+                  <FormControl>
+                    <Input placeholder="name" {...field} />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
+        </div>
+
+        <div className="space-y-2">
           <FormField
             control={form.control}
             name="parentsphone"
@@ -384,49 +386,48 @@ export function AddStudent() {
               </FormItem>
             )}
           />
-        </div>
+          <div className=" grid grid-cols-2 gap-4">
+            <FormField
+              control={form.control}
+              name="travellinglocation"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>TRAVELLING LOCATION</FormLabel>
+                  <FormControl>
+                    <Select onValueChange={field.onChange}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select location" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>{listItems}</SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="travellingstartdate"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>TRAVELLING Start DATE</FormLabel>
+                  <FormControl>
+                    <NepaliDatePicker
+                      inputClassName="form-control flex h-10 w-full rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                      className="mt-2"
+                      value=""
+                      onChange={field.onChange}
+                      options={{ calenderLocale: "ne", valueLocale: "en" }}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
 
-        <div className="space-y-4">
-          <Separator />
-          <FormField
-            control={form.control}
-            name="travellinglocation"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>TRAVELLING LOCATION</FormLabel>
-                <FormControl>
-                  <Select onValueChange={field.onChange}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select location" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>{listItems}</SelectContent>
-                  </Select>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="travellingstartdate"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel>TRAVELLING Start DATE</FormLabel>
-                <FormControl>
-                  <NepaliDatePicker
-                    inputClassName="form-control flex h-10 w-full rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
-                    className="mt-2"
-                    value=""
-                    onChange={field.onChange}
-                    options={{ calenderLocale: "ne", valueLocale: "en" }}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
           <FormField
             control={form.control}
             name="profilePic"
@@ -460,8 +461,8 @@ export function AddStudent() {
                       <Image
                         src={imagePreview}
                         alt="Preview"
-                        width={200}
-                        height={200}
+                        width={100}
+                        height={100}
                         className="rounded-md object-cover "
                       />
                       <Button
@@ -490,16 +491,14 @@ export function AddStudent() {
           </CardFooter>
 
           <Button className="w-full my-20" type="submit">
-          
-          {isLoading ? (
-           <>
-           <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-           Uploading...
-         </>
-          ) : (
-            "Submit"
-          )}
-       
+            {isLoading ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Uploading...
+              </>
+            ) : (
+              "Submit"
+            )}
           </Button>
         </div>
       </form>

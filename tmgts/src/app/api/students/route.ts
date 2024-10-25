@@ -73,13 +73,40 @@ export async function POST(req: NextRequest) {
   }
 }
 
-// GET: Fetch all students
+// GET: Fetch students with search and pagination
 export async function GET(req: NextRequest) {
   await dbConnect();
   
   try {
-    const students = await Student.find(); // Fetch all students
-    return NextResponse.json(students, { status: 200 });
+    const { searchParams } = new URL(req.url);
+    const page = parseInt(searchParams.get('page') || '1', 10);
+    const pageSize = parseInt(searchParams.get('pageSize') || '10', 10);
+    const search = searchParams.get('search') || '';
+
+    const skip = (page - 1) * pageSize;
+
+    // Create a search query
+    const searchQuery = search
+      ? {
+          $or: [
+            { name: { $regex: search, $options: 'i' } },
+            { registerID: { $regex: search, $options: 'i' } },
+            { studentClass: { $regex: search, $options: 'i' } },
+            { course: { $regex: search, $options: 'i' } },
+          ],
+        }
+      : {};
+
+    // Fetch students based on search and pagination
+    const students = await Student.find(searchQuery)
+      .skip(skip)
+      .limit(pageSize)
+      .lean();
+
+    // Get total count for pagination
+    const totalCount = await Student.countDocuments(searchQuery);
+
+    return NextResponse.json({ data: students, totalCount }, { status: 200 });
   } catch (error) {
     console.error('Error fetching students:', error);
     return NextResponse.json({ message: 'Error fetching students', error }, { status: 500 });

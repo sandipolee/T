@@ -16,7 +16,7 @@ const LogoutButton = () => {
 
   return (
     <form onSubmit={handleLogout}>
-      <button type="submit" className="dropdown-menu-item">
+      <button type="submit" className="dropdown-menu-item text-red-500">
         Logout
       </button>
     </form>

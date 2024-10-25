@@ -54,7 +54,7 @@ const DashboardHeader = () => {
             {isMasterAdmin && ( /* Conditionally show Settings if isMasterAdmin is true */
               <>
                 <DropdownMenuItem>
-                  <Link href="/dasboard/setting">Settings</Link>
+                  <Link href="/dasboard/setting" className="text-sm">Manage Users</Link>
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
               </>

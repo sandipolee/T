@@ -30,6 +30,7 @@ import { MoreHorizontal } from "lucide-react";
 import CreateAdmin from "./createAdmin";
 import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 import ConfirmationDialog from "@/app/component/ConfirmationDialog";
+import AdminTableSkeleton from "@/app/component/admnsTableSkeleton";
 
 interface Admin {
   _id: string;
@@ -196,7 +197,7 @@ export default function SettingsPage() {
         </CardHeader>
         <CardContent>
           {isLoading ? (
-            <p>Loading...</p>
+            <AdminTableSkeleton />
           ) : isError ? (
             <p>Error: {error.message}</p>
           ) : (
