@@ -1,14 +1,14 @@
-import { headers } from "next/headers";
+import { cookies } from 'next/headers';
 import Image from "next/image";
 import { Header } from "./component/header";
 import Footer from "./component/footer";
 import Link from "next/link";
-import { cookies } from 'next/headers'
- 
-const cookieStore = cookies()
 
+export default async function Home() {
+  // Move the cookies() call inside a server action or component
+  const cookieStore = cookies();
+  const theme = cookieStore.get('theme');
 
-export default function Home() {
   return (
     <>
       <Header />
