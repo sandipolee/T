@@ -16,6 +16,7 @@ import { Input } from "@/components/ui/input"
 import { IStudent } from '@/models/student'
 import { SearchX, Loader2 } from 'lucide-react'  // Import the SearchX and Loader2 icons
 import Image from 'next/image';
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 interface Student {
   _id: string;
@@ -111,13 +112,10 @@ export function StudentSelector({ selectedStudents, setSelectedStudents }: Stude
       accessorKey: 'profilePic',
       header: 'Image',
       cell: ({ row }) => (
-        <Image 
-          src={row.original.profilePic} 
-          alt={row.original.name} 
-          width={40}
-          height={40}
-          className="rounded-full object-cover"
-        />
+        <Avatar>
+        <AvatarImage src={row.original.profilePic || "/api/placeholder/32/32"} alt="Student" />
+        <AvatarFallback>ST</AvatarFallback>
+      </Avatar>
       ),
     },
     {
