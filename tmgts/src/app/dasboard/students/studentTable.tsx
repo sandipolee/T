@@ -69,9 +69,8 @@ import {
   Loader2,
 } from "lucide-react";
 import ConfirmationDialog from "@/app/component/ConfirmationDialog";
-import StudentTableSkeleton from "@/app/component/studenTableSkliton";
-import { AddStudent } from "./addStudent";
-import TableSkeleton from "@/components/TableSkeleton";
+import TableSkeleton from "@/components/TableSkeleton"; 
+import { useRouter } from 'next/navigation';
 
 interface Student {
   _id: string;
@@ -97,7 +96,7 @@ const StudentTable = () => {
   const [deleteIndex, setDeleteIndex] = useState<number | null>(null);
   const [editingStudent, setEditingStudent] = useState<Student | null>(null);
   const queryClient = useQueryClient();
-  const [dialogOpenAdd, setDialogOpenAdd] = useState(false)
+  const router = useRouter();
   const [{ pageIndex, pageSize }, setPagination] = useState({
     pageIndex: 0,
     pageSize: 10,
@@ -338,20 +337,11 @@ const StudentTable = () => {
         <div className="flex items-center justify-between">
           <CardTitle>Student Management</CardTitle>
           <div className="flex items-center gap-4">
-          <Dialog open={dialogOpenAdd} onOpenChange={setDialogOpenAdd}>
-            <DialogTrigger asChild>
-              <Button variant="outline">
-                <UserPlus className="mr-2 h-4 w-4" />
-                Add Student
-              </Button>
-            </DialogTrigger>
-            <DialogContent className="max-w-[90vw] w-full my-1 min-h-[90vh] " >
-              
-              
-                <AddStudent/>
-              
-            </DialogContent>
-          </Dialog>
+            {/* Replace the Dialog with a Button that navigates to the add student page */}
+            <Button variant="outline" onClick={() => router.push('/dasboard/students/add')}>
+              <UserPlus className="mr-2 h-4 w-4" />
+              Add Student
+            </Button>
             <div className="relative">
               <Search className="absolute left-2.5 top-2.5 h-4 w-4 text-muted-foreground" />
               <Input

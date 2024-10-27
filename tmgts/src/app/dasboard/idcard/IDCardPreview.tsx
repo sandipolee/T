@@ -34,7 +34,7 @@ export function IDCardPreview({ selectedStudents, onBack }: IDCardPreviewProps) 
       format: 'a4',
     });
 
-    const cardsPerPage = 5;
+    const cardsPerPage = 8;
     const margin = 5;
     const cardWidth = (205.74  - 3 * margin) / 2;
     const cardHeight = (129.54   - 3 * margin) / 2;
