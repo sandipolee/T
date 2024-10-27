@@ -3,25 +3,24 @@ import React from "react";
 import Image from 'next/image';
 
 interface IdCardProps {
-  studentName: string;
-  studentId: string;
-  class: string;
-  dob: string;
-  address: string;
-  transportLocation: string;
-  validity: string;
-  photoUrl: string;
+  _id: string;
+  profilePic: string;
+  name: string;
+  registerID: string;
+  studentClass: string;
+  course: string;
+  travellinglocation: string;
+  travellingstartdate: string;
+  fathersname: string;
 }
 
 const IdCard: React.FC<IdCardProps> = ({
-  studentName,
-  studentId,
-  class: studentClass,
-  dob,
-  address,
-  transportLocation,
-  validity,
-  photoUrl,
+  name,
+  registerID,
+  studentClass,
+  travellingstartdate,
+  travellinglocation,
+  profilePic,
 }) => {
   return (
     <div
@@ -35,32 +34,26 @@ const IdCard: React.FC<IdCardProps> = ({
       <div className="flex p-2 h-[200px]">
         <div className="">
           <Image
-            src={photoUrl}
+            src={profilePic}
             alt="Student Photo"
             width={97}
             height={114}
             className="ml-3 border-3 border-blue-900 rounded-md"
           />
-          <div className="font-bold text-blue-900 uppercase  ml-2 mt-2 max-w-[140px]">{studentName}</div>
+          <div className="font-bold text-blue-900 uppercase  ml-2 mt-2 max-w-[140px]">{name}</div>
         </div>
         <div className=" ml-10  mt-2 text-sm leading-tight space-y-1">
           <div>
-            <strong>Student Id No:</strong> {studentId}
+            <strong>Student Id No:</strong> {registerID}
           </div>
           <div>
             <strong>Class : </strong> {studentClass}
           </div>
           <div>
-            <strong>Date Of Birth:</strong> {dob}
+            <strong>Transport Location:</strong> {travellinglocation}
           </div>
           <div>
-            <strong>Address:</strong> {address}
-          </div>
-          <div>
-            <strong>Transport Location:</strong>: {transportLocation}
-          </div>
-          <div>
-            <strong>Validity:</strong> {validity}
+            <strong>Validity:</strong> {travellingstartdate}
           </div>
         </div>
       </div>

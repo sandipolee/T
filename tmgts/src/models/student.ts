@@ -2,6 +2,7 @@ import mongoose, { Schema, Document, Model } from 'mongoose';
 
 // Define the interface for Student
 export interface IStudent extends Document {
+  _id: string;
   registerID: string;
   name: string;
   mobileNum: string;

@@ -29,8 +29,8 @@ interface Student {
   fathersname:string,
 }
 interface StudentSelectorProps {
-  selectedStudents: string[]
-  setSelectedStudents: React.Dispatch<React.SetStateAction<string[]>>
+  selectedStudents: IStudent[]
+  setSelectedStudents: React.Dispatch<React.SetStateAction<IStudent[]>>
 }
 
 const fetchStudents = async (page: number, pageSize: number, search: string): Promise<{ data: IStudent[], totalCount: number }> => {
@@ -145,13 +145,16 @@ export function StudentSelector({ selectedStudents, setSelectedStudents }: Stude
     onRowSelectionChange: (updater) => {
       if (typeof updater === 'function') {
         const newSelection = updater(table.getState().rowSelection)
-        setSelectedStudents(
-          Object.keys(newSelection).filter(id => newSelection[id])
+        const selectedStudentData = students.filter((student, index) => 
+          newSelection[index] === true
         )
+        setSelectedStudents(selectedStudentData)
       }
     },
     state: {
-      rowSelection: Object.fromEntries(selectedStudents.map(id => [id, true])),
+      rowSelection: Object.fromEntries(
+        selectedStudents.map(student => [students.findIndex(s => s._id === student._id), true])
+      ),
     },
     pageCount: Math.ceil(totalCount / pageSize),
     manualPagination: true,

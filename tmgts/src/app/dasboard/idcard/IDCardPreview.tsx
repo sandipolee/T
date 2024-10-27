@@ -1,32 +1,32 @@
+import { useRef } from "react";
 import { Button } from "@/components/ui/button";
 import { StudentIDCard } from "./StudentIDCard";
-import { useRef } from "react";
 import jsPDF from "jspdf"
 import { toPng } from 'html-to-image';
 
-export type Student = {
-  id: string;
-  studentId: string;
+export type IStudent = {
+  _id: string;
+  profilePic: string;
   name: string;
-  class: string;
-  dob: string;
-  address: string;
-  transportLocation: string;
-  validity: string;
-  photoUrl: string;
+  registerID: string;
+  studentClass: string;
+  course: string;
+  travellinglocation: string;
+  travellingstartdate: Date;
+  fathersname: string;
 };
 
 interface IDCardPreviewProps {
-  students: Student[];
+  selectedStudents: IStudent[];
   onBack: () => void;
 }
 
-export function IDCardPreview({ students, onBack }: IDCardPreviewProps) {
+export function IDCardPreview({ selectedStudents, onBack }: IDCardPreviewProps) {
   const printRef = useRef<HTMLDivElement>(null);
 
   const handlePrint = async () => {
     const element = printRef.current;
-    if (!element) return;
+    if (!element || selectedStudents.length === 0) return;
 
     const pdf = new jsPDF({
       orientation: 'portrait',
@@ -38,8 +38,8 @@ export function IDCardPreview({ students, onBack }: IDCardPreviewProps) {
     const margin = 5;
     const cardWidth = (205.74  - 3 * margin) / 2;
     const cardHeight = (129.54   - 3 * margin) / 2;
-    console.log(students.length);
-    for (let i = 0; i < students.length; i++) {
+    console.log(selectedStudents.length);
+    for (let i = 0; i < selectedStudents.length; i++) {
       if (i > 0 && i % cardsPerPage === 0) {
         pdf.addPage();
       }
@@ -61,6 +61,10 @@ export function IDCardPreview({ students, onBack }: IDCardPreviewProps) {
     pdf.save("fancy-id-cards.pdf");
   };
 
+  if (selectedStudents.length === 0) {
+    return <div>No students selected</div>;
+  }
+
   return (
     <div>
       <div className="flex justify-between mb-4">
@@ -69,13 +73,12 @@ export function IDCardPreview({ students, onBack }: IDCardPreviewProps) {
       </div>
 
       <div className="flex justify-center">
-      <div ref={printRef} className="printable-area">
-        {students.map((student) => (
-          <StudentIDCard key={student.id} {...student} />
-        ))}
+        <div ref={printRef} className="printable-area">
+          {selectedStudents.map((student) => (
+            <StudentIDCard key={student._id} {...student} />
+          ))}
+        </div>
       </div>
-      </div>
-      
     </div>
   );
 }
