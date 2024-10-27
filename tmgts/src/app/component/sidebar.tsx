@@ -21,7 +21,7 @@ const NavItem: React.FC<NavItemProps> = ({ href, icon, text, isCollapsed, isActi
       <TooltipTrigger asChild>
         <Link
           href={href}
-          className={` rounded-sm flex items-center gap-2 rounded-lg px-4 py-2 transition-colors
+          className={` rounded-sm flex items-center gap-2  px-4 py-2 transition-colors
             ${isActive 
               ? 'bg-gray-200 ' 
               : 'hover:bg-muted'

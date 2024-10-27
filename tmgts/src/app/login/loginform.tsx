@@ -89,7 +89,7 @@ export default function Loginform() {
             <Button
               type="submit"
               disabled={isLoading}
-              className="w-full bg-yellow-500 hover:bg-yellow-400"
+              className="w-full bg-gradient-to-b from-emerald-500 to-teal-600  transition duration-300 ease-in-out transform hover:scale-105 rounded-sm"
             >
               {isLoading ? (
                 <>

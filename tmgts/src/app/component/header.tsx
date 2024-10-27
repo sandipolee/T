@@ -1,9 +1,10 @@
 'use client'
 
 import React from 'react'
-import { Image, Menu, X } from 'lucide-react'
+import { Menu, X } from 'lucide-react'
 import { link } from 'fs'
 import Link from 'next/link'
+import Image from 'next/image'
 
 const menuItems = [
   {
@@ -28,12 +29,12 @@ export function Header() {
   }
 
   return (
-    <div className="relative w-full bg-white">
-      <div className='h-full mx-auto w-full max-w-screen-x1 px-2.5 md:px-20 shadow-lg'>
+    <div className="relative w-full">
+      <div className='h-full mx-auto w-full max-w-screen-x1 px-2.5 md:px-20 border-b border-zinc-200'>
       <div className="mx-auto flex max-w-7xl items-center justify-between  py-4  ">
         <div className="inline-flex items-center space-x-2">
-          <img src="./logo.png" className='size-12' alt="" />
-        <span className="font-bold text-blue-950">TMGTS</span>
+          <Image src="/logo.png" width={48} height={48} alt="Logo" />
+          <span className="font-bold text-blue-950">TMGTS</span>
         </div>
         <div className="hidden lg:block">
           <ul className="inline-flex space-x-8">
@@ -53,7 +54,10 @@ export function Header() {
           <Link href="/login" >
           <button
             type="button"
-            className="rounded-md bg-yellow-500 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-yellow-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+            className="rounded-sm bg-gradient-to-b from-emerald-500 to-teal-600 
+            px-3 py-2 text-sm font-semibold text-white shadow-sm
+              transition duration-300 ease-in-out transform hover:scale-105
+               focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
           >
             Log In
           </button>
@@ -102,8 +106,9 @@ export function Header() {
                 <button
                 
                   type="button"
-                  className="mt-4 w-full rounded-md bg-yellow-500 
-                  px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-yellow-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
+                  className="mt-4 w-full rounded-sm bg-gradient-to-b from-emerald-500 to-teal-600
+                  px-3 py-2 text-sm font-semibold text-white shadow-sm
+                  transition duration-300 ease-in-out transform hover:scale-105 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black"
                 >
                   Log In
                 </button>

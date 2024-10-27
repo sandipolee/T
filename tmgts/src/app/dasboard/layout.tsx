@@ -1,8 +1,6 @@
 "use client"
-import SideBar from "@/app/component/sidebar";
 import DashboardHeader from "@/app/component/DashBoardHeader";
-import { auth } from "@/auth";
-import { redirect, usePathname } from "next/navigation";
+import { usePathname } from "next/navigation";
 import React, { useState } from "react";
 import { Home, Bus, GraduationCap, Users2, IdCard, ChevronLeft, ChevronRight } from "lucide-react";
 import Link from "next/link";
@@ -22,24 +20,26 @@ export default function Dashboard({
 }>) {
   const [isCollapsed, setIsCollapsed] = useState(false);
   const pathname = usePathname();
-  const isAddStudentPage = pathname === '/dasboard/students/add';
+  
+  const hideSidebarPages = ['/dasboard/students/add', '/dasboard/students/edit'];
+  const showSidebar = !hideSidebarPages.some(page => pathname.startsWith(page));
 
   return (
     <>
-      {!isAddStudentPage && (
+      {showSidebar && (
         <TooltipProvider>
           <div className={`border border-r-1 border-zinc-200 fixed left-0 top-0 flex h-full z-10 flex-col transition-all duration-300 ${isCollapsed ? 'w-[5%]' : 'w-[15%]'}`}>
-            <div className="flex-1 overflow-y-auto p-2">
-              <nav className={`flex flex-col gap-4 ${isCollapsed ? "items-center" : ""}`}>
+            <div className="flex-1 overflow-y-auto px-2">
+              <nav className={`flex flex-col gap-2 ${isCollapsed ? "items-center" : ""}`}>
                 {/* Logo or title with Tooltip in collapsed mode */}
                 <Tooltip delayDuration={0} >
                   <TooltipTrigger asChild>
                     <Link
                       href="/dasboard"
-                      className="flex items-center gap-2 rounded-lg bg-primary px-4 py-2 text-primary-foreground"
+                      className="flex items-center gap-2  h-14  px-4  text-primary border-b border-zinc-200"
                     >
                       <GraduationCap className="h-5 w-5" />
-                      {!isCollapsed && <span className="text-lg font-semibold">TMS</span>}
+                      {!isCollapsed && <span className="text-lg font-semibold">TMGTS</span>}
                     </Link>
                   </TooltipTrigger>
                   {isCollapsed && <TooltipContent side="right">TMS</TooltipContent>}
@@ -65,10 +65,10 @@ export default function Dashboard({
       )}
       
       <div className={`flex-1 transition-all duration-300 ${
-        isAddStudentPage ? 'ml-0' : (isCollapsed ? 'ml-[5%]' : 'ml-[15%]')
+        showSidebar ? (isCollapsed ? 'ml-[5%]' : 'ml-[15%]') : 'ml-0'
       }`}>
         <div className={`fixed top-0 right-0 z-10 bg-background transition-all duration-300 ${
-          isAddStudentPage ? 'w-full' : (isCollapsed ? 'w-[95%]' : 'w-[85%]')
+          showSidebar ? (isCollapsed ? 'w-[95%]' : 'w-[85%]') : 'w-full'
         }`}>
           <DashboardHeader />
         </div>

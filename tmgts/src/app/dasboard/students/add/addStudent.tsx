@@ -209,9 +209,9 @@ export function AddStudent() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className=" grid grid-cols-2 gap-10  max-sm:grid-cols-none max-sm:px-4"
+        className=" grid grid-cols-2 gap-2  max-sm:grid-cols-none max-sm:px-4"
       >
-        <div className="space-y-2">
+        <div className="space-y-2 bg-white rounded-sm border border-gray-200 p-6">
           <FormField
             control={form.control}
             name="name"
@@ -239,51 +239,50 @@ export function AddStudent() {
             )}
           />
           <div className=" grid grid-cols-2 gap-4">
-          <FormField
-            control={form.control}
-            name="gender"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="uppercase"> Gender</FormLabel>
-                <FormControl>
-                  <Select onValueChange={field.onChange}>
-                    <FormControl>
-                      <SelectTrigger>
-                        <SelectValue placeholder="Select Gender" />
-                      </SelectTrigger>
-                    </FormControl>
-                    <SelectContent>
-                      <SelectItem value="Male">Male</SelectItem>
-                      <SelectItem value="Female">Female</SelectItem>
-                      <SelectItem value="Other">Other</SelectItem>
-                    </SelectContent>
-                  </Select>
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <FormField
-            control={form.control}
-            name="dob"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="uppercase"> Date of birth</FormLabel>
-                <FormControl>
-                  <NepaliDatePicker
-                    inputClassName="form-control flex h-10 w-full rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
-                    className="mt-2"
-                    value=""
-                    onChange={field.onChange}
-                    options={{ calenderLocale: "ne", valueLocale: "en" }}
-                  />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+            <FormField
+              control={form.control}
+              name="gender"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="uppercase"> Gender</FormLabel>
+                  <FormControl>
+                    <Select onValueChange={field.onChange}>
+                      <FormControl>
+                        <SelectTrigger>
+                          <SelectValue placeholder="Select Gender" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        <SelectItem value="Male">Male</SelectItem>
+                        <SelectItem value="Female">Female</SelectItem>
+                        <SelectItem value="Other">Other</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="dob"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="uppercase"> Date of birth</FormLabel>
+                  <FormControl>
+                    <NepaliDatePicker
+                      inputClassName="form-control flex h-10 w-full rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                      className="mt-2"
+                      value=""
+                      onChange={field.onChange}
+                      options={{ calenderLocale: "ne", valueLocale: "en" }}
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
           </div>
-          
 
           <div className=" grid grid-cols-2 gap-4">
             <FormField
@@ -361,7 +360,9 @@ export function AddStudent() {
               name="mothername"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="uppercase">Mother&apos;s Name</FormLabel>
+                  <FormLabel className="uppercase">
+                    Mother&apos;s Name
+                  </FormLabel>
                   <FormControl>
                     <Input placeholder="name" {...field} />
                   </FormControl>
@@ -373,117 +374,125 @@ export function AddStudent() {
         </div>
 
         <div className="space-y-2">
-          <FormField
-            control={form.control}
-            name="parentsphone"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="uppercase">Parent&apos;s Phone</FormLabel>
-                <FormControl>
-                  <Input placeholder="Phone" {...field} />
-                </FormControl>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
-          <div className=" grid grid-cols-2 gap-4">
+          <div className="bg-white rounded-sm border border-gray-200 p-6">
             <FormField
               control={form.control}
-              name="travellinglocation"
+              name="parentsphone"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>TRAVELLING LOCATION</FormLabel>
+                  <FormLabel className="uppercase">
+                    Parent&apos;s Phone
+                  </FormLabel>
                   <FormControl>
-                    <Select onValueChange={field.onChange}>
-                      <FormControl>
-                        <SelectTrigger>
-                          <SelectValue placeholder="Select location" />
-                        </SelectTrigger>
-                      </FormControl>
-                      <SelectContent>{listItems}</SelectContent>
-                    </Select>
+                    <Input placeholder="Phone" {...field} />
                   </FormControl>
                   <FormMessage />
                 </FormItem>
               )}
             />
+            <div className=" grid grid-cols-2 gap-4">
+              <FormField
+                control={form.control}
+                name="travellinglocation"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>TRAVELLING LOCATION</FormLabel>
+                    <FormControl>
+                      <Select onValueChange={field.onChange}>
+                        <FormControl>
+                          <SelectTrigger>
+                            <SelectValue placeholder="Select location" />
+                          </SelectTrigger>
+                        </FormControl>
+                        <SelectContent>{listItems}</SelectContent>
+                      </Select>
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              <FormField
+                control={form.control}
+                name="travellingstartdate"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>TRAVELLING Start DATE</FormLabel>
+                    <FormControl>
+                      <NepaliDatePicker
+                        inputClassName="form-control flex h-10 w-full rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
+                        className="mt-2"
+                        value=""
+                        onChange={field.onChange}
+                        options={{ calenderLocale: "ne", valueLocale: "en" }}
+                      />
+                    </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+            </div>
+          </div>
+          <div className="bg-white rounded-sm border border-gray-200 p-6">
             <FormField
               control={form.control}
-              name="travellingstartdate"
-              render={({ field }) => (
+              name="profilePic"
+              render={() => (
                 <FormItem>
-                  <FormLabel>TRAVELLING Start DATE</FormLabel>
+                  <FormLabel>profile picture </FormLabel>
                   <FormControl>
-                    <NepaliDatePicker
-                      inputClassName="form-control flex h-10 w-full rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
-                      className="mt-2"
-                      value=""
-                      onChange={field.onChange}
-                      options={{ calenderLocale: "ne", valueLocale: "en" }}
-                    />
+                    {!imagePreview ? (
+                      <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+                        <label
+                          htmlFor="image-upload"
+                          className="cursor-pointer"
+                        >
+                          <div className="flex flex-col items-center">
+                            <Upload className="h-12 w-12 text-gray-400" />
+                            <span className="mt-2 text-sm font-medium text-gray-700">
+                              Click to upload
+                            </span>
+                            <span className="mt-1 text-xs text-gray-500">
+                              PNG, JPG (max. 1MB)
+                            </span>
+                          </div>
+                          <Input
+                            id="image-upload"
+                            type="file"
+                            accept="image/*"
+                            onChange={handleImageChange}
+                            className="hidden"
+                          />
+                        </label>
+                      </div>
+                    ) : (
+                      <div className="relative">
+                        <Image
+                          src={imagePreview}
+                          alt="Preview"
+                          width={100}
+                          height={100}
+                          className="rounded-md object-cover "
+                        />
+                        <Button
+                          type="button"
+                          variant="destructive"
+                          size="icon"
+                          className="absolute top-2 right-2"
+                          onClick={handleRemove}
+                        >
+                          <X className="h-4 w-4" />
+                        </Button>
+                      </div>
+                    )}
                   </FormControl>
+                  <FormDescription>
+                    Upload an image file (max 1MB).
+                  </FormDescription>
                   <FormMessage />
                 </FormItem>
               )}
             />
           </div>
-
-          <FormField
-            control={form.control}
-            name="profilePic"
-            render={() => (
-              <FormItem>
-                <FormLabel>profile picture </FormLabel>
-                <FormControl>
-                  {!imagePreview ? (
-                    <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
-                      <label htmlFor="image-upload" className="cursor-pointer">
-                        <div className="flex flex-col items-center">
-                          <Upload className="h-12 w-12 text-gray-400" />
-                          <span className="mt-2 text-sm font-medium text-gray-700">
-                            Click to upload
-                          </span>
-                          <span className="mt-1 text-xs text-gray-500">
-                            PNG, JPG (max. 1MB)
-                          </span>
-                        </div>
-                        <Input
-                          id="image-upload"
-                          type="file"
-                          accept="image/*"
-                          onChange={handleImageChange}
-                          className="hidden"
-                        />
-                      </label>
-                    </div>
-                  ) : (
-                    <div className="relative">
-                      <Image
-                        src={imagePreview}
-                        alt="Preview"
-                        width={100}
-                        height={100}
-                        className="rounded-md object-cover "
-                      />
-                      <Button
-                        type="button"
-                        variant="destructive"
-                        size="icon"
-                        className="absolute top-2 right-2"
-                        onClick={handleRemove}
-                      >
-                        <X className="h-4 w-4" />
-                      </Button>
-                    </div>
-                  )}
-                </FormControl>
-                <FormDescription>
-                  Upload an image file (max 1MB).
-                </FormDescription>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
           <CardFooter className="flex flex-col space-y-2">
             {isUploading && (
               <Progress value={uploadProgress} className="w-full" />

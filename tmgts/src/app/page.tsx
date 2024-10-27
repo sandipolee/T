@@ -5,44 +5,44 @@ import Footer from "./component/footer";
 import Link from "next/link";
 
 export default async function Home() {
-  // Move the cookies() call inside a server action or component
-  const cookieStore = cookies();
-  const theme = cookieStore.get('theme');
-
   return (
     <>
+    <div className="bg-gradient-to-br from-green-50 via-yellow-50 to-green-100 min-h-screen">
       <Header />
 
-      <div className="bg-white py-10 h-screen " >
-        <div className="h-full mx-auto w-full max-w-screen-x1 px-2.5 md:px-20 items-center max-sm:mt-20 ">
-          <div className="grid md:grid-cols-2 gap-8 pt-10">
-          <div className=" align-middle">
-            <h1 className="font-bold text-5xl max-sm:text-center max-sm:pt-8 max-sm:text-4xl text-blue-950 max-sm:justy">
-              Register for School Transport Services Today!
-            </h1>
-            <p className="text-slate-600 max-sm:text-center py-4">To get your Id card for  Transport service chick Register button and feel the form. </p>
-            
-          </div>
-          <div className="" > 
-          </div>
-          </div>
-          <div className="pb-28">
-          <Link href="/register">
-            <button className="
-            rounded-md bg-yellow-500 
-                  px-6 py-3 text-sm font-semibold text-white shadow-sm hover:bg-yellow-400 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black
-             max-sm:w-full">
-            Regester
-            </button>
-            </Link>
-          
+      <div className="pb-10 min-h-screen">
+        <div className="mx-auto w-full max-w-screen-xl px-2.5 md:px-20 items-center">
+          <div className="grid md:grid-cols-2 gap-8">
+            <div className="flex flex-col justify-center">
+              <h1 className="font-bold text-5xl max-sm:text-center max-sm:text-4xl pb-4 mb-4 bg-gradient-to-b from-emerald-500 to-teal-600 text-transparent bg-clip-text ">
+                Register for School Transport Services Today!
+              </h1>
+              
+              <Link href="/register">
+                <button className="
+                  rounded-md bg-gradient-to-b from-emerald-500 to-teal-600
+                  px-6 py-3 text-sm font-semibold text-white shadow-sm 
+                  transition duration-300 ease-in-out transform hover:scale-105
+                  max-sm:w-full">
+                  Register Now
+                </button>
+              </Link>
+            </div>
+            <div className="relative h-80 md:h-[500px]">
+              <Image
+                src="/schoolbus.png"
+                alt="School Bus Illustration"
+                layout="fill"
+                objectFit="contain"
+                priority
+                className="drop-shadow-xl"
+              />
+            </div>
           </div>
         </div>
       </div>
-      <Footer>
-        
-      </Footer>
-      
+      <Footer />
+    </div>
     </>
   );
 }

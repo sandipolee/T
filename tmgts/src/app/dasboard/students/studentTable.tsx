@@ -237,32 +237,7 @@ const StudentTable = () => {
   });
 
   const handleEditClick = (student: Student) => {
-    setEditingStudent(student);
-    setIsEditDialogOpen(true);
-  };
-
-  const handleEditSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!editingStudent) return;
-
-    try {
-      const response = await fetch(`/api/students/${editingStudent._id}`, {
-        method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(editingStudent),
-      });
-
-      if (!response.ok) {
-        throw new Error("Failed to update student");
-      }
-
-      await queryClient.invalidateQueries({ queryKey: ["students"] });
-      setIsEditDialogOpen(false);
-    } catch (error) {
-      console.error("Error updating students:", error);
-    }
+    router.push(`/dasboard/students/edit/${student._id}`);
   };
 
   const confirmDelete = async () => {
@@ -299,39 +274,6 @@ const StudentTable = () => {
         onClose={() => setIsDialogOpen(false)}
         onConfirm={confirmDelete}
       />
-
-      <Dialog open={isEditDialogOpen} onOpenChange={setIsEditDialogOpen}>
-        <DialogContent className="sm:max-w-[425px]">
-          <DialogHeader>
-            <DialogTitle>Edit Student</DialogTitle>
-          </DialogHeader>
-          <form onSubmit={handleEditSubmit}>
-            <div className="grid gap-4 py-4">
-              <div className="grid grid-cols-4 items-center gap-4">
-                <Label htmlFor="name" className="text-right">
-                  Name
-                </Label>
-                <Input
-                  id="name"
-                  value={editingStudent?.name || ""}
-                  onChange={(e) =>
-                    setEditingStudent(
-                      editingStudent
-                        ? { ...editingStudent, name: e.target.value }
-                        : null
-                    )
-                  }
-                  className="col-span-3"
-                />
-              </div>
-              {/* Add similar input fields for other student properties */}
-            </div>
-            <DialogFooter>
-              <Button type="submit">Save changes</Button>
-            </DialogFooter>
-          </form>
-        </DialogContent>
-      </Dialog>
 
       <CardHeader className="py-4 ">
         <div className="flex items-center justify-between">
