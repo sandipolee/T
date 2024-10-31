@@ -10,7 +10,7 @@ const Register = () => {
   return (
     <>
       <Header></Header>
-      <div className="h-full mx-auto w-full max-w-screen-x1 px-2.5 md:px-20 items-center">
+      <div className="h-full mx-auto w-full max-w-screen-x1 px-2.5 md:px-20 items-center dark:bg-slate-900">
       
       <InputForm></InputForm>
       </div>

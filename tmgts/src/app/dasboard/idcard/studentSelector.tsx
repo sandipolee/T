@@ -57,7 +57,7 @@ const SearchInput = React.memo(({ onSearch }: { onSearch: (value: string) => voi
         placeholder="Search students..."
         value={searchTerm}
         onChange={handleSearchChange}
-        className="max-w-sm focus:outline-none focus:ring-0"
+        className="max-w-sm focus:outline-none focus:ring-0 dark:bg-zinc-800 dark:border-gray-700 dark:text-gray-300 dark:placeholder-gray-500"
       />
     </div>
   );
@@ -171,54 +171,16 @@ export function StudentSelector({ selectedStudents, setSelectedStudents }: Stude
     refetch();
   }
 
-  if (isLoading) {
-    return (
-      <div>
-        <SearchInput onSearch={handleSearch} />
-        <div className="bg-white rounded-sm border border-gray-200">
-          <Table>
-            <TableHeader>
-              {table.getHeaderGroups().map((headerGroup) => (
-                <TableRow key={headerGroup.id}>
-                  {headerGroup.headers.map((header) => (
-                    <TableHead key={header.id}>
-                      {header.isPlaceholder
-                        ? null
-                        : flexRender(
-                            header.column.columnDef.header,
-                            header.getContext()
-                          )}
-                    </TableHead>
-                  ))}
-                </TableRow>
-              ))}
-            </TableHeader>
-            <TableBody>
-              <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
-                  <div className="flex flex-col items-center justify-center">
-                    <Loader2 className="h-8 w-8 text-gray-400 animate-spin mb-2" />
-                    <span className="text-gray-500">Loading students...</span>
-                  </div>
-                </TableCell>
-              </TableRow>
-            </TableBody>
-          </Table>
-        </div>
-      </div>
-    )
-  }
-
   return (
-    <div>
+    <div className="dark:bg-zinc-900">
       <SearchInput onSearch={handleSearch} />
-      <div className="bg-white rounded-sm border border-gray-200">
+      <div className="rounded-sm border border-gray-200 dark:border-gray-800 dark:bg-zinc-800">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
+              <TableRow key={headerGroup.id} className="dark:border-gray-800">
                 {headerGroup.headers.map((header) => (
-                  <TableHead key={header.id}>
+                  <TableHead key={header.id} className="dark:text-gray-300">
                     {header.isPlaceholder
                       ? null
                       : flexRender(
@@ -231,11 +193,24 @@ export function StudentSelector({ selectedStudents, setSelectedStudents }: Stude
             ))}
           </TableHeader>
           <TableBody>
-            {table.getRowModel().rows.length > 0 ? (
+            {isLoading ? (
+              <TableRow>
+                <TableCell colSpan={columns.length} className="h-24 text-center">
+                  <div className="flex flex-col items-center justify-center">
+                    <Loader2 className="h-8 w-8 text-gray-400 dark:text-gray-500 animate-spin mb-2" />
+                    <span className="text-gray-500 dark:text-gray-400">Loading students...</span>
+                  </div>
+                </TableCell>
+              </TableRow>
+            ) : table.getRowModel().rows.length > 0 ? (
               table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id} data-state={row.getIsSelected() && "selected"}>
+                <TableRow 
+                  key={row.id} 
+                  data-state={row.getIsSelected() && "selected"}
+                  className="dark:border-gray-800 dark:hover:bg-zinc-700/50"
+                >
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                    <TableCell key={cell.id} className="dark:text-gray-300">
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
                   ))}
@@ -245,68 +220,75 @@ export function StudentSelector({ selectedStudents, setSelectedStudents }: Stude
               <TableRow>
                 <TableCell colSpan={columns.length} className="h-24 text-center">
                   <div className="flex flex-col items-center justify-center">
-                    <SearchX className="h-8 w-8 text-gray-400 mb-2" />
-                    <span className="text-gray-500">No students found</span>
+                    <SearchX className="h-8 w-8 text-gray-400 dark:text-gray-500 mb-2" />
+                    <span className="text-gray-500 dark:text-gray-400">No students found</span>
                   </div>
                 </TableCell>
               </TableRow>
             )}
           </TableBody>
         </Table>
-        <div className="flex items-center justify-between space-x-2 py-4 px-4 border-t border-gray-200">
-        <div className="text-sm text-gray-500">
-          Page {page} of {totalPages}
-        </div>
-        <div className="space-x-2">
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => handlePageChange(1)}
-            disabled={page === 1}
-          >
-            First
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => handlePageChange(page - 1)}
-            disabled={page === 1}
-          >
-            Previous
-          </Button>
-          {[...Array(Math.min(5, totalPages))].map((_, index) => {
-            const pageNumber = page - 2 + index;
-            return pageNumber > 0 && pageNumber <= totalPages ? (
-              <Button
-                key={pageNumber}
-                variant={pageNumber === page ? "default" : "outline"}
-                size="sm"
-                onClick={() => handlePageChange(pageNumber)}
-              >
-                {pageNumber}
-              </Button>
-            ) : null;
-          })}
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => handlePageChange(page + 1)}
-            disabled={page === totalPages}
-          >
-            Next
-          </Button>
-          <Button
-            variant="outline"
-            size="sm"
-            onClick={() => handlePageChange(totalPages)}
-            disabled={page === totalPages}
-          >
-            Last
-          </Button>
+        <div className="flex items-center justify-between space-x-2 py-4 px-4 border-t border-gray-200 dark:border-gray-800">
+          <div className="text-sm text-gray-500 dark:text-gray-400">
+            Page {page} of {totalPages}
+          </div>
+          <div className="space-x-2">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => handlePageChange(1)}
+              disabled={page === 1}
+              className="dark:border-gray-700 dark:hover:bg-zinc-700 dark:text-gray-300"
+            >
+              First
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => handlePageChange(page - 1)}
+              disabled={page === 1}
+              className="dark:border-gray-700 dark:hover:bg-zinc-700 dark:text-gray-300"
+            >
+              Previous
+            </Button>
+            {[...Array(Math.min(5, totalPages))].map((_, index) => {
+              const pageNumber = page - 2 + index;
+              return pageNumber > 0 && pageNumber <= totalPages ? (
+                <Button
+                  key={pageNumber}
+                  variant={pageNumber === page ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => handlePageChange(pageNumber)}
+                  className={pageNumber === page 
+                    ? "dark:bg-zinc-700 dark:text-gray-100" 
+                    : "dark:border-gray-700 dark:hover:bg-zinc-700 dark:text-gray-300"
+                  }
+                >
+                  {pageNumber}
+                </Button>
+              ) : null;
+            })}
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => handlePageChange(page + 1)}
+              disabled={page === totalPages}
+              className="dark:border-gray-700 dark:hover:bg-zinc-700 dark:text-gray-300"
+            >
+              Next
+            </Button>
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={() => handlePageChange(totalPages)}
+              disabled={page === totalPages}
+              className="dark:border-gray-700 dark:hover:bg-zinc-700 dark:text-gray-300"
+            >
+              Last
+            </Button>
+          </div>
         </div>
       </div>
-      </div>
-      
     </div>
-  )
+  );
 }

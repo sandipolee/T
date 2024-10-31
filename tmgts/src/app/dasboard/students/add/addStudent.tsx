@@ -209,9 +209,9 @@ export function AddStudent() {
     <Form {...form}>
       <form
         onSubmit={form.handleSubmit(onSubmit)}
-        className=" grid grid-cols-2 gap-2  max-sm:grid-cols-none max-sm:px-4"
+        className="grid grid-cols-2 gap-2 max-sm:grid-cols-none max-sm:px-4"
       >
-        <div className="space-y-2 bg-white rounded-sm border border-gray-200 p-6">
+        <div className="space-y-2 rounded-sm border bg-card p-6 dark:border-gray-800">
           <FormField
             control={form.control}
             name="name"
@@ -238,13 +238,13 @@ export function AddStudent() {
               </FormItem>
             )}
           />
-          <div className=" grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4">
             <FormField
               control={form.control}
               name="gender"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="uppercase"> Gender</FormLabel>
+                  <FormLabel className="uppercase">Gender</FormLabel>
                   <FormControl>
                     <Select onValueChange={field.onChange}>
                       <FormControl>
@@ -268,7 +268,7 @@ export function AddStudent() {
               name="dob"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="uppercase"> Date of birth</FormLabel>
+                  <FormLabel className="uppercase">Date of birth</FormLabel>
                   <FormControl>
                     <NepaliDatePicker
                       inputClassName="form-control flex h-10 w-full rounded-md border border-black/30 bg-transparent px-3 py-2 text-sm placeholder:text-gray-600 focus:outline-none focus:ring-1 focus:ring-black/30 focus:ring-offset-1 disabled:cursor-not-allowed disabled:opacity-50"
@@ -284,13 +284,13 @@ export function AddStudent() {
             />
           </div>
 
-          <div className=" grid grid-cols-2 gap-4">
+          <div className="grid grid-cols-2 gap-4">
             <FormField
               control={form.control}
               name="studentClass"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="uppercase"> Class </FormLabel>
+                  <FormLabel className="uppercase">Class</FormLabel>
                   <FormControl>
                     <Select
                       onValueChange={(value: string) => {
@@ -319,7 +319,7 @@ export function AddStudent() {
               name="course"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel className="uppercase"> course </FormLabel>
+                  <FormLabel className="uppercase">course</FormLabel>
                   <FormControl>
                     <Select onValueChange={field.onChange}>
                       <FormControl>
@@ -330,7 +330,7 @@ export function AddStudent() {
                       <SelectContent>
                         {course.map((data) => (
                           // eslint-disable-next-line react/jsx-key
-                          <SelectItem value={data}> {data} </SelectItem>
+                          <SelectItem value={data}>{data}</SelectItem>
                         ))}
                       </SelectContent>
                     </Select>
@@ -340,8 +340,7 @@ export function AddStudent() {
               )}
             />
           </div>
-          <div className=" grid grid-cols-2 gap-4">
-            {" "}
+          <div className="grid grid-cols-2 gap-4">
             <FormField
               control={form.control}
               name="fathersname"
@@ -374,7 +373,7 @@ export function AddStudent() {
         </div>
 
         <div className="space-y-2">
-          <div className="bg-white rounded-sm border border-gray-200 p-6">
+          <div className="rounded-sm border bg-card p-6 dark:border-gray-800">
             <FormField
               control={form.control}
               name="parentsphone"
@@ -390,7 +389,7 @@ export function AddStudent() {
                 </FormItem>
               )}
             />
-            <div className=" grid grid-cols-2 gap-4">
+            <div className="grid grid-cols-2 gap-4">
               <FormField
                 control={form.control}
                 name="travellinglocation"
@@ -432,26 +431,26 @@ export function AddStudent() {
               />
             </div>
           </div>
-          <div className="bg-white rounded-sm border border-gray-200 p-6">
+          <div className="rounded-sm border bg-card p-6 dark:border-gray-800">
             <FormField
               control={form.control}
               name="profilePic"
               render={() => (
                 <FormItem>
-                  <FormLabel>profile picture </FormLabel>
+                  <FormLabel>profile picture</FormLabel>
                   <FormControl>
                     {!imagePreview ? (
-                      <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center">
+                      <div className="border-2 border-dashed border-gray-300 dark:border-gray-700 rounded-lg p-8 text-center">
                         <label
                           htmlFor="image-upload"
                           className="cursor-pointer"
                         >
                           <div className="flex flex-col items-center">
-                            <Upload className="h-12 w-12 text-gray-400" />
-                            <span className="mt-2 text-sm font-medium text-gray-700">
+                            <Upload className="h-12 w-12 text-gray-400 dark:text-gray-600" />
+                            <span className="mt-2 text-sm font-medium text-gray-700 dark:text-gray-300">
                               Click to upload
                             </span>
-                            <span className="mt-1 text-xs text-gray-500">
+                            <span className="mt-1 text-xs text-gray-500 dark:text-gray-400">
                               PNG, JPG (max. 1MB)
                             </span>
                           </div>

@@ -268,19 +268,22 @@ const StudentTable = () => {
   }
   
   return (
-    <Card className="w-full border-none drop-shadow-none bg-zinc-50">
+    <Card className="w-full border-none drop-shadow-none bg-zinc-50 dark:bg-zinc-900">
       <ConfirmationDialog
         open={isDialogOpen}
         onClose={() => setIsDialogOpen(false)}
         onConfirm={confirmDelete}
       />
 
-      <CardHeader className="py-4 ">
+      <CardHeader className="py-4">
         <div className="flex items-center justify-between">
-          <CardTitle>Student Management</CardTitle>
+          <CardTitle className="dark:text-gray-100">Student Management</CardTitle>
           <div className="flex items-center gap-4">
-            {/* Replace the Dialog with a Button that navigates to the add student page */}
-            <Button variant="outline" onClick={() => router.push('/dasboard/students/add')}>
+            <Button 
+              variant="outline" 
+              onClick={() => router.push('/dasboard/students/add')}
+              className="dark:border-gray-700 dark:hover:bg-gray-800"
+            >
               <UserPlus className="mr-2 h-4 w-4" />
               Add Student
             </Button>
@@ -291,19 +294,22 @@ const StudentTable = () => {
                 placeholder="Search..."
                 value={globalFilter}
                 onChange={(e) => setGlobalFilter(e.target.value)}
-                className="w-[200px] pl-8"
+                className="w-[200px] pl-8 dark:bg-zinc-800 dark:border-gray-700"
               />
             </div>
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="ml-auto">
+                <Button 
+                  variant="outline" 
+                  className="ml-auto dark:border-gray-700 dark:hover:bg-gray-800"
+                >
                   <SlidersHorizontal className="mr-2 h-4 w-4" />
                   View
                 </Button>
               </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-[150px]">
-                <DropdownMenuLabel>Toggle columns</DropdownMenuLabel>
-                <DropdownMenuSeparator />
+              <DropdownMenuContent align="end" className="w-[150px] dark:bg-zinc-800 dark:border-gray-700">
+                <DropdownMenuLabel className="dark:text-gray-100">Toggle columns</DropdownMenuLabel>
+                <DropdownMenuSeparator className="dark:border-gray-700" />
                 {table
                   .getAllColumns()
                   .filter(
@@ -330,13 +336,13 @@ const StudentTable = () => {
         </div>
       </CardHeader>
 
-      <CardContent className="p-0 bg-white border border-gray-200">
+      <CardContent className="p-0 bg-white dark:bg-zinc-800 border border-gray-200 dark:border-gray-700">
         <Table>
-          <TableHeader className="border">
+          <TableHeader className="border dark:border-gray-700">
             {table.getHeaderGroups().map((headerGroup) => (
-              <TableRow key={headerGroup.id}>
+              <TableRow key={headerGroup.id} className="dark:border-gray-700">
                 {headerGroup.headers.map((header) => (
-                  <TableHead key={header.id}>
+                  <TableHead key={header.id} className="dark:text-gray-300">
                     {header.isPlaceholder
                       ? null
                       : flexRender(
@@ -351,10 +357,10 @@ const StudentTable = () => {
           <TableBody>
             {isLoading || isFetching ? (
               <TableRow>
-                <TableCell colSpan={columns.length} className="h-24 text-center">
+                <TableCell colSpan={columns.length} className="h-24 text-center dark:text-gray-300">
                   <div className="flex items-center justify-center">
                     <Loader2 className="w-6 h-6 text-gray-400 animate-spin mr-2" />
-                    <span className="text-gray-500">Loading...</span>
+                    <span className="text-gray-500 dark:text-gray-400">Loading...</span>
                   </div>
                 </TableCell>
               </TableRow>
@@ -363,16 +369,16 @@ const StudentTable = () => {
                 <TableCell colSpan={columns.length} className="h-24 text-center">
                   <div className="flex flex-col items-center justify-center">
                     <UserX className="w-10 h-10 text-gray-400 mb-2" />
-                    <span className="text-lg font-medium text-gray-900">No students found</span>
-                    <span className="text-sm text-gray-500">Try adjusting your search or filters</span>
+                    <span className="text-lg font-medium text-gray-900 dark:text-gray-100">No students found</span>
+                    <span className="text-sm text-gray-500 dark:text-gray-400">Try adjusting your search or filters</span>
                   </div>
                 </TableCell>
               </TableRow>
             ) : (
               table.getRowModel().rows.map((row) => (
-                <TableRow key={row.id}>
+                <TableRow key={row.id} className="dark:border-gray-700">
                   {row.getVisibleCells().map((cell) => (
-                    <TableCell key={cell.id}>
+                    <TableCell key={cell.id} className="dark:text-gray-300">
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </TableCell>
                   ))}
@@ -383,23 +389,18 @@ const StudentTable = () => {
         </Table>
       </CardContent>
 
-      <CardFooter className="flex items-center justify-between px-6 bg-white pt-2 border-t-slate-950">
-        <div className="flex-1 text-sm text-muted-foreground">
+      <CardFooter className="flex items-center justify-between px-6 bg-white dark:bg-zinc-800 pt-2 border-t border-gray-200 dark:border-gray-700">
+        <div className="flex-1 text-sm text-muted-foreground dark:text-gray-400">
           {isFetching ? 'Updating...' : `${totalCount} total students`}
         </div>
         <div className="flex items-center space-x-6 lg:space-x-8">
           <div className="flex items-center space-x-2">
-            <p className="text-sm font-medium">Rows per page</p>
-            <Select
-              value={`${pagination.pageSize}`}
-              onValueChange={(value) => {
-                table.setPageSize(Number(value));
-              }}
-            >
-              <SelectTrigger className="h-8 w-[70px]">
+            <p className="text-sm font-medium dark:text-gray-300">Rows per page</p>
+            <Select>
+              <SelectTrigger className="h-8 w-[70px] dark:border-gray-700 dark:bg-zinc-800">
                 <SelectValue placeholder={pagination.pageSize} />
               </SelectTrigger>
-              <SelectContent side="top">
+              <SelectContent side="top" className="dark:bg-zinc-800 dark:border-gray-700">
                 {[10, 20, 30, 40, 50].map((pageSize) => (
                   <SelectItem key={pageSize} value={`${pageSize}`}>
                     {pageSize}
@@ -408,13 +409,13 @@ const StudentTable = () => {
               </SelectContent>
             </Select>
           </div>
-          <div className="flex w-[100px] items-center justify-center text-sm font-medium">
+          <div className="flex w-[100px] items-center justify-center text-sm font-medium dark:text-gray-300">
             Page {pagination.pageIndex + 1} of {table.getPageCount()}
           </div>
           <div className="flex items-center space-x-2">
             <Button
               variant="outline"
-              className="hidden h-8 w-8 p-0 lg:flex"
+              className="hidden h-8 w-8 p-0 lg:flex dark:border-gray-700 dark:hover:bg-gray-800"
               onClick={() => table.setPageIndex(0)}
               disabled={!table.getCanPreviousPage()}
             >
@@ -441,7 +442,7 @@ const StudentTable = () => {
             </Button>
             <Button
               variant="outline"
-              className="hidden h-8 w-8 p-0 lg:flex"
+              className="hidden h-8 w-8 p-0 lg:flex dark:border-gray-700 dark:hover:bg-gray-800"
               onClick={() => table.setPageIndex(table.getPageCount() - 1)}
               disabled={!table.getCanNextPage()}
             >

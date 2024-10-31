@@ -14,6 +14,7 @@ import { User } from 'next-auth';
 import HeaderSkeleton from "./hedderSkeleton";
 import { useRouter } from "next/navigation";
 import DynamicBreadcrumb from "./DynamicBreadcrumb";
+import { ModeToggle } from "./theme-toggle";
 
 const DashboardHeader = () => {
   const router = useRouter();
@@ -33,8 +34,12 @@ const DashboardHeader = () => {
   const user: User = session?.user as User;
 
   return (
-    <header className="sticky top-0 z-10 flex h-14 items-center gap-4 border-b bg-background px-6">
+    <header className="sticky top-0 z-10 flex justify-between h-14 items-center gap-4  border-b bg-background px-6">
       <DynamicBreadcrumb></DynamicBreadcrumb>
+      <div className="flex  justify-between gap-2">
+        <div className=" mr-2">
+        <ModeToggle />
+        </div>
       <div className="ml-auto flex items-center gap-4">
         
         <div className="text-right">
@@ -65,6 +70,8 @@ const DashboardHeader = () => {
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
+      </div>
+      
     </header>
   );
 };

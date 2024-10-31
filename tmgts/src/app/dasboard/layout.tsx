@@ -2,7 +2,7 @@
 import DashboardHeader from "@/app/component/DashBoardHeader";
 import { usePathname } from "next/navigation";
 import React, { useState } from "react";
-import { Home, Bus, GraduationCap, Users2, IdCard, ChevronLeft, ChevronRight } from "lucide-react";
+import { Home, Bus, GraduationCap, Users2, IdCard, ChevronLeft, ChevronRight, PanelRight } from "lucide-react";
 import Link from "next/link";
 import {
   Tooltip,
@@ -28,7 +28,7 @@ export default function Dashboard({
     <>
       {showSidebar && (
         <TooltipProvider>
-          <div className={`border border-r-1 border-zinc-200 fixed left-0 top-0 flex h-full z-10 flex-col transition-all duration-300 ${isCollapsed ? 'w-[5%]' : 'w-[15%]'}`}>
+          <div className={`border-r border-zinc-200 dark:border-zinc-800 fixed left-0 top-0 flex h-full z-10 flex-col transition-all duration-300 ${isCollapsed ? 'w-[5%]' : 'w-[15%]'}`}>
             <div className="flex-1 overflow-y-auto px-2">
               <nav className={`flex flex-col gap-2 ${isCollapsed ? "items-center" : ""}`}>
                 {/* Logo or title with Tooltip in collapsed mode */}
@@ -36,7 +36,7 @@ export default function Dashboard({
                   <TooltipTrigger asChild>
                     <Link
                       href="/dasboard"
-                      className="flex items-center gap-2  h-14  px-4  text-primary border-b border-zinc-200"
+                      className="flex items-center gap-2  h-14  px-4  text-primary border-b border-zinc-200 dark:border-zinc-800"
                     >
                       <GraduationCap className="h-5 w-5" />
                       {!isCollapsed && <span className="text-lg font-semibold">TMGTS</span>}
@@ -58,7 +58,7 @@ export default function Dashboard({
               className="self-end mb-4 mr-2"
               size="icon"
             >
-              {isCollapsed ? <ChevronRight className="h-4 w-4" /> : <ChevronLeft className="h-4 w-4" />}
+              {isCollapsed ? <ChevronRight className="h-4 w-4" /> : <PanelRight className="h-4 w-4" />}
             </Button>
           </div>
         </TooltipProvider>
@@ -67,12 +67,12 @@ export default function Dashboard({
       <div className={`flex-1 transition-all duration-300 ${
         showSidebar ? (isCollapsed ? 'ml-[5%]' : 'ml-[15%]') : 'ml-0'
       }`}>
-        <div className={`fixed top-0 right-0 z-10 bg-background transition-all duration-300 ${
+        <div className={`fixed top-0 right-0 z-10 bg-background dark:bg-zinc-950 transition-all duration-300 ${
           showSidebar ? (isCollapsed ? 'w-[95%]' : 'w-[85%]') : 'w-full'
         }`}>
           <DashboardHeader />
         </div>
-        <div className="pt-16 bg-zinc-50">{children}</div>
+        <div className="pt-16 bg-zinc-50 dark:bg-zinc-900">{children}</div>
       </div>
     </>
   );
